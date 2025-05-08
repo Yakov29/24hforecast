@@ -1,0 +1,32 @@
+.header{
+    height: 80px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.header .container{
+    display: flex;
+    align-items: center;
+}
+
+.header__list{
+    display: flex;
+    gap: 49px;
+    margin-left: 111px;
+}
+
+.header__link{
+    color: black;
+    font-family: 'Montserrat Alternates';
+}
+
+.header__button{
+    margin-left: auto;
+    margin-right: 27px;
+    width: 89px;
+    height: 35px;
+    background-color: #FFB36C;
+    border: none;
+    color: black;
+    border-radius: 10px;
+}

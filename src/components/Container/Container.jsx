@@ -3,7 +3,7 @@ import { Component } from "react";
 import "./Container.css"
 
 
-export class Container extends Component {
+class Container extends Component {
    
     render() {
         return (
@@ -11,3 +11,5 @@ export class Container extends Component {
         )
     }
 }
+
+export default Container;

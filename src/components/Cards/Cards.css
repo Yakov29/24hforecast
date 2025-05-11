@@ -1,0 +1,99 @@
+.cards {
+  padding-top: 60px;
+}
+
+.cards__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 90px;
+  justify-content: center;
+}
+
+.cards__item {
+  position: relative;
+  width: 320px;
+  text-align: center;
+  background-color: #e8e8e8;
+  border-radius: 20px;
+  padding-top: 47px;
+  padding-bottom: 88px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.cards__city {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+.cards__country {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.cards__time {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.cards__button {
+  margin-top: 10px;
+  width: 114px;
+  height: 28px;
+  font-size: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #ffb36c;
+}
+
+.cards__data {
+  display: flex;
+  justify-content: center;
+  margin-top: 13px;
+}
+
+.cards__data__item {
+  padding-right: 13px;
+}
+
+.cards__data__item:last-child {
+  padding-left: 13px;
+  border-left: 2px solid #000000;
+}
+
+.cards__image {
+  margin-top: 23px;
+}
+
+.cards__temperature {
+  margin-top: 15px;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+
+.cards__buttons{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    gap: 16px;
+}
+
+.cards__buttons__item__button{
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #000000;
+}
+
+.cards__delete{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    border: none;
+}

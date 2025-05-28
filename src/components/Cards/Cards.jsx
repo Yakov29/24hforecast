@@ -16,7 +16,7 @@ import {
 
 import "./Cards.css";
 
-const Cards = () => {
+const Cards = ({getMoreData}) => {
   const [cities, setCities] = useState([]);
   const [weatherData, setWeatherData] = useState({});
 
@@ -100,7 +100,7 @@ const Cards = () => {
     }
 
     return (
-      <li className="cards__item" key={index}>
+      <li className="cards__item" key={index} onClick={getMoreData}>
         <span className="cards__city">{city}</span>
         <span className="cards__country">{getCountryFlag(country)}</span>
         <h4 className="cards__time">{time}</h4>
@@ -114,6 +114,7 @@ const Cards = () => {
         </ul>
         <div className="cards__image">{iconElement}</div>
         <h3 className="cards__temperature">{temp}</h3>
+        <button className="cards__more">See more</button>
         <button
           className="cards__delete"
           onClick={() => handleDeleteCity(city)}

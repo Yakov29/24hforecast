@@ -4,18 +4,19 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Cards from "./components/Cards/Cards";
 import Pets from "./components/Pets/Pets";
+import More from "./components/More/More";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 
 function App() {
-  const [city, setCity] = React.useState("");
-  const [weather, setWeather] = React.useState(null);
+  useEffect(() => {
+    document.title = "24 Forecast";
+  }, []);
 
-  // React.useEffect(() => {
-  //   getWeatherAPI(city).then((data) => {
-  //     setWeather(data);
-  //   });
-  // }, [city]);
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [moreCity, setMoreCity] = useState("");
+  const [showPets, setShowPets] = useState(true); // 👈 новое состояние
 
   function weatherHandler(e) {
     const value = e.target.value;
@@ -24,12 +25,12 @@ function App() {
   }
 
   function weatherSaver() {
-    console.log("save")
-    let savedCities = localStorage.getItem("city")
-    let citiesArray = savedCities ? JSON.parse(savedCities) : []
-    citiesArray.push(city)
-    localStorage.setItem("city", JSON.stringify(citiesArray))
-    window.location.reload()
+    console.log("save");
+    let savedCities = localStorage.getItem("city");
+    let citiesArray = savedCities ? JSON.parse(savedCities) : [];
+    citiesArray.push(city);
+    localStorage.setItem("city", JSON.stringify(citiesArray));
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -94,12 +95,24 @@ function App() {
     );
   };
 
+  const getMoreData = (e) => {
+    if (e.target.classList.contains("cards__more")) {
+      const cityName = e.target
+        .closest(".cards__item")
+        .querySelector(".cards__city").textContent;
+      console.log(`More data for ${cityName}`);
+      setMoreCity(cityName);
+      setShowPets(false); // 👈 скрыть Pets
+    }
+  };
+
   return (
     <div className="App">
       <Header />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
-      <Cards city={city} renderCard={renderCard} />
-      <Pets />
+      <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
+      {showPets && <Pets />}
+      <More city={moreCity} />
     </div>
   );
 }

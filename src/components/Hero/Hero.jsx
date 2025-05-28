@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "../Container/Container";
-import { IoIosSearch } from "react-icons/io";
+import { FaPlus } from "react-icons/fa";
 import "./Hero.css";
 
 const Hero = ({ weatherHandler, weatherSaver }) => {
@@ -33,7 +33,7 @@ const Hero = ({ weatherHandler, weatherSaver }) => {
             onChange={weatherHandler}
           />
           <button className="hero__search" onClick={weatherSaver}>
-            <IoIosSearch />
+            <FaPlus />
           </button>
         </div>
       </Container>

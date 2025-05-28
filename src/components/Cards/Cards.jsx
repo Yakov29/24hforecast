@@ -1,121 +1,127 @@
-import React from "react";
-
-import sun from "../../images/sun.svg";
+import React, { useEffect, useState } from "react";
 import Container from "../Container/Container";
-
-import { TbReload } from "react-icons/tb";
-import { FaRegHeart } from "react-icons/fa";
-import { FaRegTrashAlt } from "react-icons/fa";
+import getWeatherAPI from "../../api/getWeatherAPI";
+import { MdDeleteOutline } from "react-icons/md";
+import {
+  WiDaySunny,
+  WiNightClear,
+  WiCloud,
+  WiCloudy,
+  WiShowers,
+  WiRain,
+  WiThunderstorm,
+  WiSnow,
+  WiFog,
+} from "react-icons/wi";
 
 import "./Cards.css";
 
 const Cards = () => {
+  const [cities, setCities] = useState([]);
+  const [weatherData, setWeatherData] = useState({});
+
+  useEffect(() => {
+    const savedCities = JSON.parse(localStorage.getItem("city") || "[]");
+    setCities(savedCities);
+
+    savedCities.forEach((city) => {
+      getWeatherAPI(city).then((data) => {
+        setWeatherData((prev) => ({ ...prev, [city]: data }));
+      });
+    });
+  }, []);
+
+  const handleDeleteCity = (cityToDelete) => {
+    const updatedCities = cities.filter((city) => city !== cityToDelete);
+    setCities(updatedCities);
+    localStorage.setItem("city", JSON.stringify(updatedCities));
+
+    setWeatherData((prev) => {
+      const updatedData = { ...prev };
+      delete updatedData[cityToDelete];
+      return updatedData;
+    });
+  };
+
+  const getWeatherIcon = (iconCode) => {
+    const codeMap = {
+      "01d": <WiDaySunny size={100} />,
+      "01n": <WiNightClear size={100} />,
+      "02d": <WiCloud size={100} />,
+      "02n": <WiCloud size={100} />,
+      "03d": <WiCloudy size={100} />,
+      "03n": <WiCloudy size={100} />,
+      "04d": <WiCloudy size={100} />,
+      "04n": <WiCloudy size={100} />,
+      "09d": <WiShowers size={100} />,
+      "09n": <WiShowers size={100} />,
+      "10d": <WiRain size={100} />,
+      "10n": <WiRain size={100} />,
+      "11d": <WiThunderstorm size={100} />,
+      "11n": <WiThunderstorm size={100} />,
+      "13d": <WiSnow size={100} />,
+      "13n": <WiSnow size={100} />,
+      "50d": <WiFog size={100} />,
+      "50n": <WiFog size={100} />,
+    };
+
+    return codeMap[iconCode] || <WiDaySunny size={48} />;
+  };
+
+  const renderCard = (city, index) => {
+    const data = weatherData[city];
+    const now = new Date();
+    const date = now.toLocaleDateString("en-GB");
+    const day = now.toLocaleDateString("en-US", { weekday: "long" });
+    const time = now.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+
+    let temp = "Not Found";
+    let country = "";
+    let iconElement = <div className="cards__image-placeholder"></div>;
+
+    if (data) {
+      temp = Math.round(data.main.temp) + "℃";
+      country = data.sys.country;
+      const iconCode = data.weather[0].icon;
+      iconElement = getWeatherIcon(iconCode);
+    }
+
+    return (
+      <li className="cards__item" key={index}>
+        <span className="cards__city">{city}</span>
+        <span className="cards__country">{country}</span>
+        <h4 className="cards__time">{time}</h4>
+        {/* <button className="cards__button">Hourly forecast</button> */}
+        <ul className="cards__data">
+          <li className="cards__data__item">
+            <span className="cards__data__text">{date}</span>
+          </li>
+          <li className="cards__data__item">
+            <span className="cards__data__text">{day}</span>
+          </li>
+        </ul>
+        <div className="cards__image">{iconElement}</div>
+        <h3 className="cards__temperature">{temp}</h3>
+        <button
+          className="cards__delete"
+          onClick={() => handleDeleteCity(city)}
+          aria-label={`Delete ${city}`}
+        >
+          <MdDeleteOutline />
+        </button>
+      </li>
+    );
+  };
+
   return (
     <section className="cards">
       <Container>
         <ul className="cards__list">
-          <li className="cards__item">
-            <span className="cards__city">Dnipro</span>
-            <span className="cards__country">Ukraine</span>
-            <h4 className="cards__time">14:00</h4>
-            <button className="cards__button">Hourly forecast</button>
-            <ul className="cards__data">
-              <li className="cards__data__item">
-                <span className="cards__data__text">09.05.2025</span>
-              </li>
-              <li className="cards__data__item">
-                <span className="cards__data__text">Friday</span>
-              </li>
-            </ul>
-            <img className="cards__image" src={sun} alt="" />
-            <h3 className="cards__temperature">22℃</h3>
-            <ul className="cards__buttons">
-              <li className="cards__buttons__item">
-                <button className="cards__buttons__item__button">
-                  <TbReload />
-                </button>
-              </li>
-              <li className="cards__buttons__item">
-                <button
-                  style={{ color: "red" }}
-                  className="cards__buttons__item__button"
-                >
-                  <FaRegHeart />
-                </button>
-              </li>
-            </ul>
-            <button className="cards__delete">
-              <FaRegTrashAlt />
-            </button>
-          </li>
-          <li className="cards__item">
-            <span className="cards__city">Dnipro</span>
-            <span className="cards__country">Ukraine</span>
-            <h4 className="cards__time">14:00</h4>
-            <button className="cards__button">Hourly forecast</button>
-            <ul className="cards__data">
-              <li className="cards__data__item">
-                <span className="cards__data__text">09.05.2025</span>
-              </li>
-              <li className="cards__data__item">
-                <span className="cards__data__text">Friday</span>
-              </li>
-            </ul>
-            <img className="cards__image" src={sun} alt="" />
-            <h3 className="cards__temperature">22℃</h3>
-            <ul className="cards__buttons">
-              <li className="cards__buttons__item">
-                <button className="cards__buttons__item__button">
-                  <TbReload />
-                </button>
-              </li>
-              <li className="cards__buttons__item">
-                <button
-                  style={{ color: "red" }}
-                  className="cards__buttons__item__button"
-                >
-                  <FaRegHeart />
-                </button>
-              </li>
-            </ul>
-            <button className="cards__delete">
-              <FaRegTrashAlt />
-            </button>
-          </li>
-          <li className="cards__item">
-            <span className="cards__city">Dnipro</span>
-            <span className="cards__country">Ukraine</span>
-            <h4 className="cards__time">14:00</h4>
-            <button className="cards__button">Hourly forecast</button>
-            <ul className="cards__data">
-              <li className="cards__data__item">
-                <span className="cards__data__text">09.05.2025</span>
-              </li>
-              <li className="cards__data__item">
-                <span className="cards__data__text">Friday</span>
-              </li>
-            </ul>
-            <img className="cards__image" src={sun} alt="" />
-            <h3 className="cards__temperature">22℃</h3>
-            <ul className="cards__buttons">
-              <li className="cards__buttons__item">
-                <button className="cards__buttons__item__button">
-                  <TbReload />
-                </button>
-              </li>
-              <li className="cards__buttons__item">
-                <button
-                  style={{ color: "red" }}
-                  className="cards__buttons__item__button"
-                >
-                  <FaRegHeart />
-                </button>
-              </li>
-            </ul>
-            <button className="cards__delete">
-              <FaRegTrashAlt />
-            </button>
-          </li>
+          {cities.map((city, index) => renderCard(city, index))}
         </ul>
       </Container>
     </section>

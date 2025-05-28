@@ -1,0 +1,36 @@
+.pets{
+    margin-top: 80px;
+}
+
+.pets__title{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.pets__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.pets__item {
+  width: 260px;
+
+}
+
+.pets__image {
+  width: 100%;
+  object-fit: cover;
+  height: 200px;
+  border-radius: 8px;
+}
+
+.pets__load{
+    background-color: #FFB36C;
+    width: 138px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+}

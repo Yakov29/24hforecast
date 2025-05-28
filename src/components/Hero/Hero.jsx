@@ -1,12 +1,15 @@
 import React from "react";
-import  Container  from "../Container/Container";
-
+import Container from "../Container/Container";
 import { IoIosSearch } from "react-icons/io";
-
-
 import "./Hero.css";
 
-const Hero = () => {
+const Hero = ({ weatherHandler, weatherSaver }) => {
+  const getCurrentDate = () => {
+    const now = new Date();
+    const options = { year: "numeric", month: "long", weekday: "long", day: "numeric" };
+    return now.toLocaleDateString("en-US", options); // Можно заменить "en-US" на нужный язык
+  };
+
   return (
     <section className="hero">
       <Container>
@@ -19,7 +22,7 @@ const Hero = () => {
             </span>
           </li>
           <li className="hero__item">
-            <span className="hero__text">October 2023 Friday, 13th</span>
+            <span className="hero__text">{getCurrentDate()}</span>
           </li>
         </ul>
         <div className="hero__box">
@@ -27,9 +30,10 @@ const Hero = () => {
             type="search"
             placeholder="Search location..."
             className="hero__input"
+            onChange={weatherHandler}
           />
-          <button className="hero__search">
-              <IoIosSearch/>
+          <button className="hero__search" onClick={weatherSaver}>
+            <IoIosSearch />
           </button>
         </div>
       </Container>

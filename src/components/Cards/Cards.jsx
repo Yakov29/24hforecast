@@ -68,6 +68,15 @@ const Cards = () => {
     return codeMap[iconCode] || <WiDaySunny size={48} />;
   };
 
+  const getCountryFlag = (countryCode) => {
+    if (!countryCode) return "";
+    return countryCode
+      .toUpperCase()
+      .replace(/./g, (char) =>
+        String.fromCodePoint(char.charCodeAt(0) + 127397)
+      );
+  };
+
   const renderCard = (city, index) => {
     const data = weatherData[city];
     const now = new Date();
@@ -93,9 +102,8 @@ const Cards = () => {
     return (
       <li className="cards__item" key={index}>
         <span className="cards__city">{city}</span>
-        <span className="cards__country">{country}</span>
+        <span className="cards__country">{getCountryFlag(country)}</span>
         <h4 className="cards__time">{time}</h4>
-        {/* <button className="cards__button">Hourly forecast</button> */}
         <ul className="cards__data">
           <li className="cards__data__item">
             <span className="cards__data__text">{date}</span>

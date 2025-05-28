@@ -23,12 +23,15 @@
 
 .cards__city {
   position: absolute;
+  font-size: 20px;
+
   top: 15px;
   left: 20px;
 }
 
 .cards__country {
   position: absolute;
+  font-size: 24px;
   top: 15px;
   right: 20px;
 }
@@ -73,27 +76,26 @@
   font-weight: 500;
 }
 
-
-.cards__buttons{
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    gap: 16px;
+.cards__buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 16px;
 }
 
-.cards__buttons__item__button{
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: #000000;
+.cards__buttons__item__button {
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: #000000;
 }
 
-.cards__delete{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    font-size: 30px;
-    background: none;
-    border: none;
+.cards__delete {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
 }

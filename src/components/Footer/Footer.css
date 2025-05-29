@@ -1,0 +1,43 @@
+.footer{
+    background-color: #FFB36C;
+    padding-top: 40px;
+    padding-bottom: 64px;
+}
+
+.footer__logo{
+    width: 120px;
+}
+
+
+.footer .container{
+    display: flex;
+    gap: 103px;
+}
+
+.footer__links{
+    display: block;
+}
+
+.footer__item:first-child{
+margin-bottom: 10px;
+}
+
+.footer__title{
+    font-family: 'Montserrat Alternates';
+    font-size: 16px;
+}
+
+.footer__link{
+    color: black;
+    font-size: 12px;
+}
+
+.footer__contact{
+    display: flex;
+    gap: 20px;
+}
+
+.footer__icon{
+    font-size: 40px;
+    color: #000;
+}

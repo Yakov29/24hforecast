@@ -5,8 +5,10 @@ import Hero from "./components/Hero/Hero";
 import Cards from "./components/Cards/Cards";
 import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
+import Slider from "./components/Slider/Slider";
 
 import getWeatherAPI from "./api/getWeatherAPI";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   useEffect(() => {
@@ -102,7 +104,6 @@ function App() {
         .querySelector(".cards__city").textContent;
       console.log(`More data for ${cityName}`);
       setMoreCity(cityName);
-      setShowPets(false); // 👈 скрыть Pets
     }
   };
 
@@ -111,8 +112,10 @@ function App() {
       <Header />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
-      {showPets && <Pets />}
+      <Pets />
       <More city={moreCity} />
+      <Slider/>
+      <Footer />
     </div>
   );
 }

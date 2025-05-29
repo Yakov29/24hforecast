@@ -1,0 +1,16 @@
+.slider__title{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.slider__list{
+    display: flex;
+}
+
+.slider__img{
+    width: 384px;
+}
+
+.slider__box{
+    width: 100%;
+}

@@ -1,0 +1,49 @@
+.singup__modal {
+  width: 600px;
+  background-color: white;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 28px;
+  padding-bottom: 28px;
+  padding-left: 80px;
+  padding-right: 80px;
+  text-align: center;
+}
+
+
+.singup__list{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.singup__item{
+    text-align: left;
+}
+
+.singup__input{
+    width: 100%;
+    height: 50px;
+    padding-left: 20px;
+    background-color: #E4E4E4;
+    border: none;
+    border-radius: 10px;
+}
+
+.singup__description{
+    margin-bottom: 15px;
+}
+
+.singup__button{
+    width: 114px;
+    height: 37px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFB36C;
+}

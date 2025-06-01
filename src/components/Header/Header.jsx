@@ -6,7 +6,7 @@ import "./Header.css"
 import logo from "../../images/logo.svg";
 import user from "../../images/user.svg";
 
-const Header = () => {
+const Header = ({regButtonHandler}) => {
   return (
     <header className="header">
       <Container>
@@ -28,7 +28,7 @@ const Header = () => {
             </a>
           </li>
         </ul>
-        <button className="header__button">Sign Up</button>
+        <button onClick={regButtonHandler} className="header__button">Sign Up</button>
         <img src={user} className="header__user" alt="" />
       </Container>
     </header>

@@ -6,6 +6,7 @@ import Cards from "./components/Cards/Cards";
 import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
 import Slider from "./components/Slider/Slider";
+import SingUp from "./components/SingUp/SingUp";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import Footer from "./components/Footer/Footer";
@@ -18,7 +19,12 @@ function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [moreCity, setMoreCity] = useState("");
-  const [showPets, setShowPets] = useState(true); // 👈 новое состояние
+
+  function regButtonHandler() {
+    const singUpBackdrop = document.querySelector(".sungup");
+    singUpBackdrop.style.display = "block";
+  }
+
 
   function weatherHandler(e) {
     const value = e.target.value;
@@ -109,12 +115,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
+      <Header regButtonHandler={regButtonHandler}/>
+      <Hero  weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
       <Pets />
       <More city={moreCity} />
       <Slider/>
+      <SingUp />
       <Footer />
     </div>
   );

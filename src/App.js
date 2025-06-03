@@ -7,6 +7,7 @@ import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
 import Slider from "./components/Slider/Slider";
 import SingUp from "./components/SingUp/SingUp";
+import Login from "./components/Login/Login";
 import Footer from "./components/Footer/Footer";
 
 import getWeatherAPI from "./api/getWeatherAPI";
@@ -16,34 +17,33 @@ import user from "./images/user.svg"; // Default user avatar
 
 function App() {
   const [avatarURL, setAvatarURL] = useState("");
-  
- useEffect(() => {
-  document.title = "24 Forecast";
 
-  const storedAccount = localStorage.getItem("account");
+  useEffect(() => {
+    document.title = "24 Forecast";
 
-  if (storedAccount === null) {
-    localStorage.setItem("account", JSON.stringify({}));
-    // If you have a default avatar URL, set it here
-    setAvatarURL(user);
-  } else {
-    const account = JSON.parse(storedAccount);
+    const storedAccount = localStorage.getItem("account");
 
-    if (account.userid) {
+    if (storedAccount === null) {
+      localStorage.setItem("account", JSON.stringify({}));
+      // If you have a default avatar URL, set it here
+      setAvatarURL(user);
+    } else {
+      const account = JSON.parse(storedAccount);
 
-      getProfileAPI(account.userid)
-        .then((data) => {
-          console.log("Account data from API:", data);
-          setAvatarURL(data.avatar);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch profile:", error);
-        });
+      if (account.userid) {
+        getProfileAPI(account.userid)
+          .then((data) => {
+            console.log("Account data from API:", data);
+            setAvatarURL(data.avatar);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch profile:", error);
+          });
+      }
+
+      console.log("Account data:", account);
     }
-
-    console.log("Account data:", account);
-  }
-}, []);
+  }, []);
 
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
@@ -52,6 +52,13 @@ function App() {
   function regButtonHandler() {
     const singUpBackdrop = document.querySelector(".sungup");
     singUpBackdrop.style.display = "block";
+  }
+
+  function logButtonHandler() {
+    const singUpBackdrop = document.querySelector(".sungup");
+    const logInBackdrop = document.querySelector(".login");
+    singUpBackdrop.style.display = "none";
+    logInBackdrop.style.display = "block";
   }
 
   function weatherHandler(e) {
@@ -145,7 +152,7 @@ function App() {
     e.preventDefault();
     const form = e.target.closest(".singup__modal");
 
-    const backdrop = document.querySelector(".sungup");
+    const backdrop = document.querySelector(".singup");
     const inputs = form.querySelectorAll(".singup__input[name]");
 
     const formData = {};
@@ -170,7 +177,24 @@ function App() {
     localStorage.setItem("account", JSON.stringify(formData));
     form.reset();
   };
+  
+  const logInAccount = (e) => {
+    console.log("login")
+     e.preventDefault();
+    const form = e.target.closest(".login__modal");
 
+    const backdrop = document.querySelector(".login");
+    const inputs = form.querySelectorAll(".login__input[name]");
+
+    const formData = {};
+    inputs.forEach((input) => {
+      formData[input.name] = input.value;
+    });
+    getProfileAPI(formData.userid).then((data) => {
+      console.log(data)
+    })
+    console.log(formData)
+  }
   return (
     <div className="App">
       <Header regButtonHandler={regButtonHandler} avatar={avatarURL} />
@@ -179,7 +203,8 @@ function App() {
       <Pets />
       <More city={moreCity} />
       <Slider />
-      <SingUp registerAccount={registerAccount} />
+      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler}/>
+      <Login logInAccount={logInAccount}/>
       <Footer />
     </div>
   );

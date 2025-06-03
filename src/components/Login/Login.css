@@ -1,5 +1,5 @@
-.singup__modal {
-  width: 600px;
+.login__modal{
+    width: 600px;
   background-color: white;
   border-radius: 10px;
   position: fixed;
@@ -14,18 +14,18 @@
 }
 
 
-.singup__list{
+.login__list{
     display: flex;
     flex-direction: column;
     gap: 30px;
     margin-top: 30px;
 }
 
-.singup__item{
+.login__item{
     text-align: left;
 }
 
-.singup__input{
+.login__input{
     width: 100%;
     height: 50px;
     padding-left: 20px;
@@ -34,11 +34,11 @@
     border-radius: 10px;
 }
 
-.singup__description{
+.login__description{
     margin-bottom: 15px;
 }
 
-.singup__button{
+.login__button{
     width: 114px;
     height: 37px;
     margin-left: auto;
@@ -48,12 +48,12 @@
     background-color: #FFB36C;
 }
 
-.singup__login{
+.login__login{
     margin-top: 15px;
     font-size: 10px;
 }
 
-.singup__login-button{
+.login__login-button{
     text-decoration:underline;
     background: none;
     border: none;

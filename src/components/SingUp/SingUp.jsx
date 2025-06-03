@@ -1,7 +1,7 @@
 import React from "react";
 import "./SingUp.css";
 
-const SingUp = ({ registerAccount }) => {
+const SingUp = ({ registerAccount , logButtonHandler}) => {
   return (
     <div className="backdrop sungup">
       <form className="singup__modal">
@@ -15,7 +15,7 @@ const SingUp = ({ registerAccount }) => {
               className="singup__input"
               type="text"
               id="name"
-              name="username" // ← ВАЖНО
+              name="username" 
               placeholder="Username"
             />
           </li>
@@ -27,7 +27,7 @@ const SingUp = ({ registerAccount }) => {
               className="singup__input"
               type="email"
               id="email"
-              name="email" // ← ВАЖНО
+              name="email" 
               placeholder="Email"
             />
           </li>
@@ -39,7 +39,7 @@ const SingUp = ({ registerAccount }) => {
               className="singup__input"
               type="password"
               id="password"
-              name="password" // ← ВАЖНО
+              name="password" 
               placeholder="Password"
             />
           </li>
@@ -52,6 +52,7 @@ const SingUp = ({ registerAccount }) => {
             Sign Up
           </button>
         </ul>
+        <span className="singup__login">Already have an account? <button type="button" onClick={logButtonHandler} className="singup__login-button">Log In</button></span>
       </form>
     </div>
   );

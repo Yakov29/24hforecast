@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/24hforecast/static/css/main.34a2dfbe.css",
-    "main.js": "/24hforecast/static/js/main.671d2d75.js",
+    "main.css": "/24hforecast/static/css/main.c7d4a32c.css",
+    "main.js": "/24hforecast/static/js/main.a8e43076.js",
     "static/media/herobg.png": "/24hforecast/static/media/herobg.48da5051f8e4d2b910c3.png",
     "static/media/whatsapp.svg": "/24hforecast/static/media/whatsapp.494edb9c141e3e12b3c4cd17aecb246c.svg",
     "static/media/instagram.svg": "/24hforecast/static/media/instagram.32e2cc81b7464e0125a07c2562d3eabf.svg",
@@ -9,11 +9,11 @@
     "static/media/facebook.svg": "/24hforecast/static/media/facebook.65426bf19f9ed0e2fbc33f38d2629679.svg",
     "static/media/logo.svg": "/24hforecast/static/media/logo.31214a6ca57e3d4a329b185cdd9c102f.svg",
     "index.html": "/24hforecast/index.html",
-    "main.34a2dfbe.css.map": "/24hforecast/static/css/main.34a2dfbe.css.map",
-    "main.671d2d75.js.map": "/24hforecast/static/js/main.671d2d75.js.map"
+    "main.c7d4a32c.css.map": "/24hforecast/static/css/main.c7d4a32c.css.map",
+    "main.a8e43076.js.map": "/24hforecast/static/js/main.a8e43076.js.map"
   },
   "entrypoints": [
-    "static/css/main.34a2dfbe.css",
-    "static/js/main.671d2d75.js"
+    "static/css/main.c7d4a32c.css",
+    "static/js/main.a8e43076.js"
   ]
 }

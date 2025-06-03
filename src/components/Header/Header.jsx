@@ -4,9 +4,9 @@ import  Container  from "../Container/Container";
 import "./Header.css"
 
 import logo from "../../images/logo.svg";
-import user from "../../images/user.svg";
 
-const Header = ({regButtonHandler}) => {
+const Header = ({regButtonHandler, avatar}) => {
+  console.log(avatar)
   return (
     <header className="header">
       <Container>
@@ -29,7 +29,7 @@ const Header = ({regButtonHandler}) => {
           </li>
         </ul>
         <button onClick={regButtonHandler} className="header__button">Sign Up</button>
-        <img src={user} className="header__user" alt="" />
+        <img src={avatar} className="header__user" alt="" />
       </Container>
     </header>
   );

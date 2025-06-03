@@ -1,7 +1,7 @@
 import React from "react";
 import "./SingUp.css";
 
-const SingUp = () => {
+const SingUp = ({ registerAccount }) => {
   return (
     <div className="backdrop sungup">
       <form className="singup__modal">
@@ -15,6 +15,7 @@ const SingUp = () => {
               className="singup__input"
               type="text"
               id="name"
+              name="username" // ← ВАЖНО
               placeholder="Username"
             />
           </li>
@@ -26,6 +27,7 @@ const SingUp = () => {
               className="singup__input"
               type="email"
               id="email"
+              name="email" // ← ВАЖНО
               placeholder="Email"
             />
           </li>
@@ -37,11 +39,16 @@ const SingUp = () => {
               className="singup__input"
               type="password"
               id="password"
+              name="password" // ← ВАЖНО
               placeholder="Password"
             />
           </li>
 
-          <button type="submit" className="singup__button">
+          <button
+            type="submit"
+            onClick={registerAccount}
+            className="singup__button"
+          >
             Sign Up
           </button>
         </ul>

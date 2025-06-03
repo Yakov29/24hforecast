@@ -7,14 +7,43 @@ import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
 import Slider from "./components/Slider/Slider";
 import SingUp from "./components/SingUp/SingUp";
-
-import getWeatherAPI from "./api/getWeatherAPI";
 import Footer from "./components/Footer/Footer";
 
+import getWeatherAPI from "./api/getWeatherAPI";
+import pushProfileAPI from "./api/pushProfileAPI";
+import getProfileAPI from "./api/getProfileAPI";
+import user from "./images/user.svg"; // Default user avatar
+
 function App() {
-  useEffect(() => {
-    document.title = "24 Forecast";
-  }, []);
+  const [avatarURL, setAvatarURL] = useState("");
+  
+ useEffect(() => {
+  document.title = "24 Forecast";
+
+  const storedAccount = localStorage.getItem("account");
+
+  if (storedAccount === null) {
+    localStorage.setItem("account", JSON.stringify({}));
+    // If you have a default avatar URL, set it here
+    setAvatarURL(user);
+  } else {
+    const account = JSON.parse(storedAccount);
+
+    if (account.userid) {
+
+      getProfileAPI(account.userid)
+        .then((data) => {
+          console.log("Account data from API:", data);
+          setAvatarURL(data.avatar);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch profile:", error);
+        });
+    }
+
+    console.log("Account data:", account);
+  }
+}, []);
 
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
@@ -24,7 +53,6 @@ function App() {
     const singUpBackdrop = document.querySelector(".sungup");
     singUpBackdrop.style.display = "block";
   }
-
 
   function weatherHandler(e) {
     const value = e.target.value;
@@ -113,15 +141,45 @@ function App() {
     }
   };
 
+  const registerAccount = (e) => {
+    e.preventDefault();
+    const form = e.target.closest(".singup__modal");
+
+    const backdrop = document.querySelector(".sungup");
+    const inputs = form.querySelectorAll(".singup__input[name]");
+
+    const formData = {};
+    inputs.forEach((input) => {
+      formData[input.name] = input.value;
+
+      formData.userid = Math.floor(
+        1000000000 + Math.random() * 9000000000
+      ).toString();
+    });
+    backdrop.style.display = "none";
+
+    pushProfileAPI(formData)
+      .then((data) => {
+        console.log("Account registered:", data);
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Error registering account:", error);
+      });
+    console.log("Account registered:", formData);
+    localStorage.setItem("account", JSON.stringify(formData));
+    form.reset();
+  };
+
   return (
     <div className="App">
-      <Header regButtonHandler={regButtonHandler}/>
-      <Hero  weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
+      <Header regButtonHandler={regButtonHandler} avatar={avatarURL} />
+      <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
       <Pets />
       <More city={moreCity} />
-      <Slider/>
-      <SingUp />
+      <Slider />
+      <SingUp registerAccount={registerAccount} />
       <Footer />
     </div>
   );

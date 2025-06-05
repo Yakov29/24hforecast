@@ -46,7 +46,7 @@ const More = ({ city }) => {
               />
             </li>
             <li className="more__item">
-              <h4 className="more__title">Pressure</h4>
+              <h4 className="more__title">Pressurشرم الشيخ e</h4>
               <p className="more__temp">{weather.main.pressure} Pa</p>
               <img
                 className="more__icon"
@@ -65,7 +65,11 @@ const More = ({ city }) => {
             </li>
             <li className="more__item">
               <h4 className="more__title">Visibility</h4>
-              <p className="more__temp">{weather.visibility} m</p>
+              <p className="more__temp">
+                {weather.visibility === 10000
+                  ? "Unlimited"
+                  : `${weather.visibility} m`}
+              </p>
               <img
                 className="more__icon"
                 src="https://cdn-icons-png.flaticon.com/512/802/802067.png"

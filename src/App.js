@@ -13,10 +13,14 @@ import Footer from "./components/Footer/Footer";
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
-import user from "./images/user.svg"; // Default user avatar
+import user from "./images/user.svg";
 
 function App() {
   const [avatarURL, setAvatarURL] = useState("");
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [moreCity, setMoreCity] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     document.title = "24 Forecast";
@@ -25,37 +29,33 @@ function App() {
 
     if (storedAccount === null) {
       localStorage.setItem("account", JSON.stringify({}));
-      // If you have a default avatar URL, set it here
       setAvatarURL(user);
     } else {
       const account = JSON.parse(storedAccount);
 
-      if (account.userid) {
-        getProfileAPI(account.userid)
+      if (account.userid && account.password) {
+        getProfileAPI(account.userid, account.password)
           .then((data) => {
             console.log("Account data from API:", data);
-            setAvatarURL(data.avatar);
+            setAvatarURL(data.avatar || user);
+            setIsLoggedIn(true);
           })
           .catch((error) => {
             console.error("Failed to fetch profile:", error);
+            setAvatarURL(user);
+            setIsLoggedIn(false);
           });
       }
-
-      console.log("Account data:", account);
     }
   }, []);
 
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState(null);
-  const [moreCity, setMoreCity] = useState("");
-
   function regButtonHandler() {
-    const singUpBackdrop = document.querySelector(".sungup");
+    const singUpBackdrop = document.querySelector(".singup");
     singUpBackdrop.style.display = "block";
   }
 
   function logButtonHandler() {
-    const singUpBackdrop = document.querySelector(".sungup");
+    const singUpBackdrop = document.querySelector(".singup");
     const logInBackdrop = document.querySelector(".login");
     singUpBackdrop.style.display = "none";
     logInBackdrop.style.display = "block";
@@ -64,11 +64,9 @@ function App() {
   function weatherHandler(e) {
     const value = e.target.value;
     setCity(value);
-    console.log(value);
   }
 
   function weatherSaver() {
-    console.log("save");
     let savedCities = localStorage.getItem("city");
     let citiesArray = savedCities ? JSON.parse(savedCities) : [];
     citiesArray.push(city);
@@ -77,14 +75,15 @@ function App() {
   }
 
   useEffect(() => {
-    getWeatherAPI(city).then((data) => {
-      setWeather(data);
-    });
+    if (city) {
+      getWeatherAPI(city).then((data) => {
+        setWeather(data);
+      });
+    }
   }, [city]);
 
   const renderCard = (index) => {
     const now = new Date();
-
     const date = now.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "2-digit",
@@ -143,7 +142,6 @@ function App() {
       const cityName = e.target
         .closest(".cards__item")
         .querySelector(".cards__city").textContent;
-      console.log(`More data for ${cityName}`);
       setMoreCity(cityName);
     }
   };
@@ -151,38 +149,34 @@ function App() {
   const registerAccount = (e) => {
     e.preventDefault();
     const form = e.target.closest(".singup__modal");
-
     const backdrop = document.querySelector(".singup");
     const inputs = form.querySelectorAll(".singup__input[name]");
 
     const formData = {};
     inputs.forEach((input) => {
       formData[input.name] = input.value;
-
-      formData.userid = Math.floor(
-        1000000000 + Math.random() * 9000000000
-      ).toString();
     });
+
+    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
     backdrop.style.display = "none";
 
     pushProfileAPI(formData)
       .then((data) => {
         console.log("Account registered:", data);
+        localStorage.setItem("account", JSON.stringify(formData));
+        setAvatarURL(data.avatar || user);
+        setIsLoggedIn(true);
         form.reset();
       })
       .catch((error) => {
         console.error("Error registering account:", error);
       });
-    console.log("Account registered:", formData);
-    localStorage.setItem("account", JSON.stringify(formData));
-    form.reset();
   };
-  
-  const logInAccount = (e) => {
-    console.log("login")
-     e.preventDefault();
-    const form = e.target.closest(".login__modal");
 
+  const logInAccount = (e) => {
+    e.preventDefault();
+    const form = e.target.closest(".login__modal");
     const backdrop = document.querySelector(".login");
     const inputs = form.querySelectorAll(".login__input[name]");
 
@@ -190,21 +184,31 @@ function App() {
     inputs.forEach((input) => {
       formData[input.name] = input.value;
     });
-    getProfileAPI(formData.userid).then((data) => {
-      console.log(data)
-    })
-    console.log(formData)
-  }
+
+    getProfileAPI(formData.userid, formData.password)
+      .then((data) => {
+        console.log("Успішний вхід:", data);
+        backdrop.style.display = "none";
+        localStorage.setItem("account", JSON.stringify(formData));
+        setAvatarURL(data.avatar || user);
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error("Помилка входу:", error);
+      });
+  };
+
   return (
     <div className="App">
-      <Header regButtonHandler={regButtonHandler} avatar={avatarURL} />
+      <Header regButtonHandler={regButtonHandler} avatar={avatarURL} isLoggedIn={isLoggedIn} />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
       <Pets />
       <More city={moreCity} />
       <Slider />
-      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler}/>
-      <Login logInAccount={logInAccount}/>
+      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler} />
+      <Login logInAccount={logInAccount} />
       <Footer />
     </div>
   );

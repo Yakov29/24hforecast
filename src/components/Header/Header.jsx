@@ -1,12 +1,12 @@
 import React from "react";
 import { Component } from "react";
-import  Container  from "../Container/Container";
-import "./Header.css"
+import Container from "../Container/Container";
+import "./Header.css";
 
 import logo from "../../images/logo.svg";
 
-const Header = ({regButtonHandler, avatar}) => {
-  console.log(avatar)
+const Header = ({ regButtonHandler, avatar, isLoggedIn }) => {
+  console.log(avatar);
   return (
     <header className="header">
       <Container>
@@ -28,12 +28,16 @@ const Header = ({regButtonHandler, avatar}) => {
             </a>
           </li>
         </ul>
-        <button onClick={regButtonHandler} className="header__button">Sign Up</button>
+        {!isLoggedIn && (
+          <button onClick={regButtonHandler} className="header__button">
+            Sign Up
+          </button>
+        )}
+
         <img src={avatar} className="header__user" alt="" />
       </Container>
     </header>
   );
 };
 
-
-export default Header
+export default Header;

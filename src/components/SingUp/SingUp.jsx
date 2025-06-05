@@ -3,7 +3,7 @@ import "./SingUp.css";
 
 const SingUp = ({ registerAccount , logButtonHandler}) => {
   return (
-    <div className="backdrop sungup">
+    <div className="backdrop singup">
       <form className="singup__modal">
         <h2 className="singup__title">Sign Up</h2>
         <ul className="singup__list">

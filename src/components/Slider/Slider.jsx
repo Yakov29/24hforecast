@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./Slider.css";
 import Container from "../Container/Container";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const images = [
   "https://img.freepik.com/free-photo/morskie-oko-tatry_1204-510.jpg?semt=ais_hybrid&w=740",
@@ -12,22 +11,29 @@ const images = [
   "https://faktypro.com.ua/uploads/img-2/15-cikavih-faktiv-pro-dnipro.jpg"
 ];
 
-
-
 const Slider = () => {
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  const prevSlide = () => {
-    setIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const getSlide = (i) => {
+  const getImage = (offset) => {
     const total = images.length;
-    return images[(index + i + total) % total];
+    return images[(currentIndex + offset + total) % total];
+  };
+
+  const handleSlide = (dir) => {
+    if (isAnimating) return;
+    setDirection(dir);
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      setCurrentIndex((prev) =>
+        dir === "left"
+          ? (prev - 1 + images.length) % images.length
+          : (prev + 1) % images.length
+      );
+      setIsAnimating(false);
+    }, 500);
   };
 
   return (
@@ -35,19 +41,32 @@ const Slider = () => {
       <Container>
         <h2 className="slider__title">Beautiful Nature</h2>
         <div className="slider__box">
-          <button className="slider__arrow slider__arrow--left" onClick={prevSlide}><FaArrowLeft/></button>
-          <ul className="slider__list">
-            <li className="slider__item side">
-              <img className="slider__img" src={getSlide(-1)} alt="side-left" />
-            </li>
-            <li className="slider__item center">
-              <img className="slider__img" src={getSlide(0)} alt="center" />
-            </li>
-            <li className="slider__item side">
-              <img className="slider__img" src={getSlide(1)} alt="side-right" />
-            </li>
-          </ul>
-          <button className="slider__arrow slider__arrow--right" onClick={nextSlide}><FaArrowRight/></button>
+          <button
+            className="slider__arrow slider__arrow--left"
+            onClick={() => handleSlide("left")}
+          >
+            <FaArrowLeft />
+          </button>
+
+          <div className={`slider__viewport ${isAnimating ? "animating " + direction : ""}`}>
+            <div className="slider__track">
+              {[getImage(-1), getImage(0), getImage(1)].map((src, i) => (
+                <div
+                  key={i}
+                  className={`slider__item ${i === 1 ? "center" : "side"}`}
+                >
+                  <img src={src} alt={`slide-${i}`} className="slider__img" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            className="slider__arrow slider__arrow--right"
+            onClick={() => handleSlide("right")}
+          >
+            <FaArrowRight />
+          </button>
         </div>
       </Container>
     </section>

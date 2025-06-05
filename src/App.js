@@ -13,7 +13,7 @@ import Footer from "./components/Footer/Footer";
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
-import user from "./images/user.svg";
+const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
 function App() {
   const [avatarURL, setAvatarURL] = useState("");
@@ -22,32 +22,41 @@ function App() {
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    document.title = "24 Forecast";
+ useEffect(() => {
+  document.title = "24 Forecast";
 
-    const storedAccount = localStorage.getItem("account");
+  const storedAccount = localStorage.getItem("account");
 
-    if (storedAccount === null) {
-      localStorage.setItem("account", JSON.stringify({}));
+  if (storedAccount === null) {
+    localStorage.setItem("account", JSON.stringify({
+      avatar: "https://freesvg.org/img/abstract-user-flat-3.png",
+    }));
+    setAvatarURL(user);
+  } else {
+    const account = JSON.parse(storedAccount);
+
+    if (!account.avatar) {
       setAvatarURL(user);
     } else {
-      const account = JSON.parse(storedAccount);
-
-      if (account.userid && account.password) {
-        getProfileAPI(account.userid, account.password)
-          .then((data) => {
-            console.log("Account data from API:", data);
-            setAvatarURL(data.avatar || user);
-            setIsLoggedIn(true);
-          })
-          .catch((error) => {
-            console.error("Failed to fetch profile:", error);
-            setAvatarURL(user);
-            setIsLoggedIn(false);
-          });
-      }
+      setAvatarURL(account.avatar);
     }
-  }, []);
+
+    if (account.userid && account.password) {
+      getProfileAPI(account.userid, account.password)
+        .then((data) => {
+          console.log("Account data from API:", data);
+          setAvatarURL(data.avatar || user);
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch profile:", error);
+          setAvatarURL(user);
+          setIsLoggedIn(false);
+        });
+    }
+  }
+}, []);
+
 
   function regButtonHandler() {
     const singUpBackdrop = document.querySelector(".singup");

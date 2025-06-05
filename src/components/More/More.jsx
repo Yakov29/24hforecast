@@ -46,7 +46,7 @@ const More = ({ city }) => {
               />
             </li>
             <li className="more__item">
-              <h4 className="more__title">Pressurشرم الشيخ e</h4>
+              <h4 className="more__title">Pressure</h4>
               <p className="more__temp">{weather.main.pressure} Pa</p>
               <img
                 className="more__icon"

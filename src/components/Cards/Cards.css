@@ -19,12 +19,12 @@
   padding-bottom: 88px;
   padding-left: 20px;
   padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .cards__city {
   position: absolute;
   font-size: 20px;
-
   top: 15px;
   left: 20px;
 }
@@ -49,6 +49,7 @@
   border-radius: 10px;
   border: none;
   background-color: #ffb36c;
+  cursor: pointer;
 }
 
 .cards__data {
@@ -86,6 +87,7 @@
   border: none;
   height: 30px;
   background-color: #ffb36c;
+  cursor: pointer;
 }
 
 .cards__buttons__item__button {
@@ -93,6 +95,7 @@
   background: none;
   border: none;
   color: #000000;
+  cursor: pointer;
 }
 
 .cards__delete {
@@ -102,4 +105,181 @@
   font-size: 30px;
   background: none;
   border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .cards__list {
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .cards__item {
+    width: 100%;
+    max-width: 320px;
+    padding-top: 30px;
+    padding-bottom: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .cards__city,
+  .cards__country {
+    font-size: 16px;
+    top: 10px;
+  }
+
+  .cards__time {
+    font-size: 18px;
+  }
+
+  .cards__button {
+    width: 90px;
+    height: 25px;
+    font-size: 9px;
+  }
+
+  .cards__data__item {
+    padding-right: 8px;
+  }
+
+  .cards__data__item:last-child {
+    padding-left: 8px;
+    border-left: 1px solid #000000;
+  }
+
+  .cards__temperature {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  .cards__more {
+    width: 80px;
+    font-size: 9px;
+    height: 28px;
+    bottom: 15px;
+    left: 15px;
+  }
+
+  .cards__buttons__item__button,
+  .cards__delete {
+    font-size: 24px;
+    bottom: 15px;
+  }
+
+  .cards__delete {
+    right: 15px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1199px) {
+  .cards__list {
+    gap: 50px;
+  }
+
+  .cards__item {
+    width: 45%;
+    max-width: 320px;
+    padding-top: 40px;
+    padding-bottom: 70px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .cards__city,
+  .cards__country {
+    font-size: 18px;
+    top: 12px;
+  }
+
+  .cards__time {
+    font-size: 22px;
+  }
+
+  .cards__button {
+    width: 100px;
+    height: 26px;
+    font-size: 9.5px;
+  }
+
+  .cards__data__item {
+    padding-right: 10px;
+  }
+
+  .cards__data__item:last-child {
+    padding-left: 10px;
+    border-left: 1.5px solid #000000;
+  }
+
+  .cards__temperature {
+    font-size: 28px;
+    margin-top: 12px;
+  }
+
+  .cards__more {
+    width: 90px;
+    font-size: 9.5px;
+    height: 29px;
+    bottom: 18px;
+    left: 18px;
+  }
+
+  .cards__buttons__item__button,
+  .cards__delete {
+    font-size: 28px;
+    bottom: 18px;
+  }
+
+  .cards__delete {
+    right: 18px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cards__list {
+    gap: 90px;
+  }
+
+  .cards__item {
+    width: 320px;
+  }
+
+  .cards__city,
+  .cards__country {
+    font-size: 20px;
+  }
+
+  .cards__time {
+    font-size: 24px;
+  }
+
+  .cards__button {
+    width: 114px;
+    height: 28px;
+    font-size: 10px;
+  }
+
+  .cards__data__item {
+    padding-right: 13px;
+  }
+
+  .cards__data__item:last-child {
+    padding-left: 13px;
+    border-left: 2px solid #000000;
+  }
+
+  .cards__temperature {
+    font-size: 32px;
+  }
+
+  .cards__more {
+    width: 100px;
+    font-size: 10px;
+    height: 30px;
+  }
+
+  .cards__buttons__item__button,
+  .cards__delete {
+    font-size: 30px;
+  }
 }

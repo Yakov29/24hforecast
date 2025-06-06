@@ -1,12 +1,12 @@
-.pets{
-    margin-top: 80px;
-    margin-bottom: 80px;
+.pets {
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
-.pets__title{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 40px;
+.pets__title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 40px;
 }
 
 .pets__list {
@@ -14,11 +14,12 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
+  justify-content: center;
 }
 
 .pets__item {
   width: 260px;
-
+  box-sizing: border-box;
 }
 
 .pets__image {
@@ -28,10 +29,87 @@
   border-radius: 8px;
 }
 
-.pets__load{
-    background-color: #FFB36C;
+.pets__load {
+  background-color: #ffb36c;
+  width: 138px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Мобильные устройства (максимум 480px) */
+@media (max-width: 480px) {
+  .pets {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .pets__title {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .pets__list {
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .pets__item {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .pets__image {
+    height: 150px;
+  }
+
+  .pets__load {
+    width: 100%;
+    height: 36px;
+  }
+}
+
+/* Планшеты и средние экраны (от 481px до 1199px) */
+@media (min-width: 481px) and (max-width: 1199px) {
+  .pets__item {
+    width: 45%;
+    max-width: 260px;
+  }
+
+  .pets__image {
+    height: 180px;
+  }
+}
+
+/* Десктопы > 1200px */
+@media (min-width: 1200px) {
+  .pets__item {
+    width: 260px;
+  }
+
+  .pets__image {
+    height: 200px;
+  }
+
+  .pets__load {
     width: 138px;
     height: 40px;
-    border: none;
-    border-radius: 10px;
+  }
+}
+
+/* Центрирование заголовка и блока pets для экранов 1200px и ниже */
+@media (max-width: 1200px) {
+  .pets {
+    text-align: center;
+  }
+
+  .pets__title {
+    text-align: center;
+  }
+
+  .pets__item {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

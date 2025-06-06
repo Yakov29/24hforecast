@@ -1,39 +1,93 @@
-.header{
-    height: 80px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+.header {
+  height: 80px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
 }
 
-.header .container{
+.header .container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header__list {
+  display: flex;
+  gap: 49px;
+  margin-left: 111px;
+}
+
+.header__link {
+  color: black;
+  font-family: 'Montserrat Alternates';
+}
+
+.header__button {
+  margin-left: auto;
+  margin-right: 27px;
+  width: 89px;
+  height: 35px;
+  background-color: #FFB36C;
+  border: none;
+  color: black;
+  border-radius: 10px;
+}
+
+.header__user {
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+  border-radius: 50%;
+}
+
+/* Мобильная версия до 480px */
+@media (max-width: 480px) {
+  .header {
+    height: auto;
+    padding: 10px 0;
     display: flex;
-    align-items: center;
-}
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.header__list{
+  .header .container {
     display: flex;
-    gap: 49px;
-    margin-left: 111px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .header__list {
+    display: none; /* Скрываем список ссылок */
+  }
+
+  .header__button {
+    margin: 10px 0 0 0;
+    width: 100%;
+  }
+
+  .header__user {
+    margin-left: 0;
+    margin-top: 10px;
+  }
 }
 
-.header__link{
-    color: black;
-    font-family: 'Montserrat Alternates';
-}
+/* Планшеты и средние экраны от 481px до 1199px */
+@media (min-width: 481px) and (max-width: 1199px) {
+  .header__list {
+    gap: 20px;
+    margin-left: 40px;
+  }
 
-.header__button{
-    margin-left: auto;
-    margin-right: 27px;
-    width: 89px;
-    height: 35px;
-    background-color: #FFB36C;
-    border: none;
-    color: black;
-    border-radius: 10px;
-}
+  .header__button {
+    margin-right: 15px;
+    width: 80px;
+    height: 32px;
+  }
 
-.header__user{
-    width: 50px;
-    height: 50px;
-margin-left: auto;
-    border-radius: 50%;
+  .header__user {
+    width: 40px;
+    height: 40px;
+  }
 }

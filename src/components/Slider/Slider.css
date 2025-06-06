@@ -1,5 +1,9 @@
-.slider{
+/* Текущие стили остаются без изменений */
+
+.slider {
   margin-bottom: 80px;
+  max-width: 100%; /* чтобы не выходил за экран */
+  padding: 0 10px;
 }
 
 .slider__title {
@@ -8,6 +12,7 @@
   margin-bottom: 20px;
 }
 
+/* Основная структура слайдера */
 .slider__box {
   position: relative;
   display: flex;
@@ -29,11 +34,11 @@
 }
 
 .slider__viewport.animating.left .slider__track {
-  transform: translateX(340px); /* сдвиг вправо, новая картинка слева */
+  transform: translateX(340px);
 }
 
 .slider__viewport.animating.right .slider__track {
-  transform: translateX(-340px); /* сдвиг влево, новая картинка справа */
+  transform: translateX(-340px);
 }
 
 .slider__item {
@@ -79,4 +84,75 @@
 
 .slider__arrow--right {
   right: 10px;
+}
+
+/* Адаптив */
+
+/* Мобильные устройства 320-480px */
+@media (max-width: 480px) {
+  .slider__viewport {
+    width: 320px;
+    height: 150px;
+  }
+
+  .slider__item {
+    width: 280px;
+    height: 150px;
+    margin: 0 5px;
+  }
+
+  .slider__viewport.animating.left .slider__track {
+    transform: translateX(290px);
+  }
+
+  .slider__viewport.animating.right .slider__track {
+    transform: translateX(-290px);
+  }
+
+  .slider__arrow {
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  .slider__arrow--left {
+    left: 5px;
+  }
+
+  .slider__arrow--right {
+    right: 5px;
+  }
+}
+
+/* Планшеты (от 481 до 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .slider__viewport {
+    width: 600px;
+    height: 180px;
+  }
+
+  .slider__item {
+    width: 280px;
+    height: 180px;
+    margin: 0 8px;
+  }
+
+  .slider__viewport.animating.left .slider__track {
+    transform: translateX(296px);
+  }
+
+  .slider__viewport.animating.right .slider__track {
+    transform: translateX(-296px);
+  }
+
+  .slider__arrow {
+    font-size: 22px;
+    padding: 9px;
+  }
+}
+
+/* Скрываем слайдер на планшетах и выше */
+@media (max-width: 1199px) {
+  .slider {
+    display: none;
+  }
 }

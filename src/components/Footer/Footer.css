@@ -1,43 +1,177 @@
-.footer{
+.footer {
     background-color: #FFB36C;
     padding-top: 40px;
     padding-bottom: 64px;
 }
 
-.footer__logo{
+/* Логотип */
+.footer__logo {
     width: 120px;
+    max-width: 100%;
 }
 
-
-.footer .container{
+/* Контейнер с флексом */
+.footer .container {
     display: flex;
     gap: 103px;
+    flex-wrap: wrap; /* чтобы переносились элементы на маленьких экранах */
 }
 
-.footer__links{
+/* Блок ссылок */
+.footer__links {
     display: block;
 }
 
-.footer__item:first-child{
-margin-bottom: 10px;
+/* Первый элемент в списке с отступом снизу */
+.footer__item:first-child {
+    margin-bottom: 10px;
 }
 
-.footer__title{
-    font-family: 'Montserrat Alternates';
+/* Заголовок футера */
+.footer__title {
+    font-family: 'Montserrat Alternates', sans-serif;
     font-size: 16px;
 }
 
-.footer__link{
+/* Ссылки */
+.footer__link {
     color: black;
     font-size: 12px;
 }
 
-.footer__contact{
+/* Контакты - флекс с отступами */
+.footer__contact {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap; /* на маленьких экранах иконки могут переноситься */
 }
 
-.footer__icon{
+/* Иконки */
+.footer__icon {
     font-size: 40px;
     color: #000;
+}
+
+
+/* Адаптив */
+
+/* Мобильные устройства (320-480px) */
+@media (max-width: 480px) {
+    .footer .container {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .footer__logo {
+        width: 80px;
+        margin-bottom: 20px;
+    }
+
+    .footer__title {
+        font-size: 14px;
+    }
+
+    .footer__link {
+        font-size: 10px;
+    }
+
+    .footer__contact {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .footer__icon {
+        font-size: 30px;
+    }
+}
+
+/* Планшеты (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .footer .container {
+        flex-wrap: nowrap;
+        gap: 60px;
+        justify-content: center;
+        padding: 0 30px;
+    }
+
+    .footer__logo {
+        width: 100px;
+    }
+
+    .footer__title {
+        font-size: 15px;
+    }
+
+    .footer__link {
+        font-size: 11px;
+    }
+
+    .footer__contact {
+        gap: 18px;
+    }
+
+    .footer__icon {
+        font-size: 35px;
+    }
+}
+
+/* Планшеты и маленькие десктопы (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .footer .container {
+        gap: 80px;
+        padding: 0 50px;
+        justify-content: flex-start;
+    }
+
+    .footer__logo {
+        width: 110px;
+    }
+
+    .footer__title {
+        font-size: 16px;
+    }
+
+    .footer__link {
+        font-size: 12px;
+    }
+
+    .footer__contact {
+        gap: 20px;
+    }
+
+    .footer__icon {
+        font-size: 38px;
+    }
+}
+
+/* Десктопы (от 1200px) */
+@media (min-width: 1200px) {
+    .footer .container {
+        gap: 103px;
+        padding: 0 80px;
+        justify-content: flex-start;
+    }
+
+    .footer__logo {
+        width: 120px;
+    }
+
+    .footer__title {
+        font-size: 16px;
+    }
+
+    .footer__link {
+        font-size: 12px;
+    }
+
+    .footer__contact {
+        gap: 20px;
+    }
+
+    .footer__icon {
+        font-size: 40px;
+    }
 }

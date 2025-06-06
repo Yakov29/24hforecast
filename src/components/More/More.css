@@ -24,6 +24,7 @@
   background-color: #d9d9d9;
   padding: 20px;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .more__icon {
@@ -40,4 +41,74 @@
   font-size: 32px;
   margin-top: 10px;
   margin-bottom: 23px;
+}
+
+@media (max-width: 480px) {
+  .more {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .more__list {
+    gap: 30px;
+  }
+  
+  .more__item {
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .more__icon {
+    width: 65px;
+    height: 65px;
+  }
+  
+  .more__title {
+    font-size: 14px;
+  }
+  
+  .more__temp {
+    font-size: 24px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1199px) {
+  .more__item {
+    width: 45%;
+    max-width: 290px;
+  }
+  
+  .more__icon {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .more__title {
+    font-size: 15px;
+  }
+  
+  .more__temp {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .more__item {
+    width: 290px;
+  }
+  
+  .more__icon {
+    width: 85px;
+    height: 85px;
+  }
+  
+  .more__title {
+    font-size: 16px;
+  }
+  
+  .more__temp {
+    font-size: 32px;
+  }
 }

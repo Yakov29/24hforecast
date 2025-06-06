@@ -16,7 +16,7 @@ import {
 
 import "./Cards.css";
 
-const Cards = ({getMoreData}) => {
+const Cards = ({ getMoreData }) => {
   const [cities, setCities] = useState([]);
   const [weatherData, setWeatherData] = useState({});
 
@@ -45,27 +45,27 @@ const Cards = ({getMoreData}) => {
 
   const getWeatherIcon = (iconCode) => {
     const codeMap = {
-      "01d": <WiDaySunny size={100} />,
-      "01n": <WiNightClear size={100} />,
-      "02d": <WiCloud size={100} />,
-      "02n": <WiCloud size={100} />,
-      "03d": <WiCloudy size={100} />,
-      "03n": <WiCloudy size={100} />,
-      "04d": <WiCloudy size={100} />,
-      "04n": <WiCloudy size={100} />,
-      "09d": <WiShowers size={100} />,
-      "09n": <WiShowers size={100} />,
-      "10d": <WiRain size={100} />,
-      "10n": <WiRain size={100} />,
-      "11d": <WiThunderstorm size={100} />,
-      "11n": <WiThunderstorm size={100} />,
-      "13d": <WiSnow size={100} />,
-      "13n": <WiSnow size={100} />,
-      "50d": <WiFog size={100} />,
-      "50n": <WiFog size={100} />,
+      "01d": <WiDaySunny size={100} color="#f39c12" />,      // Солнце — желтый
+      "01n": <WiNightClear size={100} color="#f1c40f" />,    // Ночь — желтый чуть светлее
+      "02d": <WiCloud size={100} color="#7f8c8d" />,         // Облачно — серый
+      "02n": <WiCloud size={100} color="#7f8c8d" />,
+      "03d": <WiCloudy size={100} color="#95a5a6" />,        // Облачно сильнее — светло-серый
+      "03n": <WiCloudy size={100} color="#95a5a6" />,
+      "04d": <WiCloudy size={100} color="#7f8c8d" />,
+      "04n": <WiCloudy size={100} color="#7f8c8d" />,
+      "09d": <WiShowers size={100} color="#3498db" />,       // Ливень — синий
+      "09n": <WiShowers size={100} color="#3498db" />,
+      "10d": <WiRain size={100} color="#2980b9" />,           // Дождь — синий темный
+      "10n": <WiRain size={100} color="#2980b9" />,
+      "11d": <WiThunderstorm size={100} color="#8e44ad" />,  // Гроза — фиолетовый
+      "11n": <WiThunderstorm size={100} color="#8e44ad" />,
+      "13d": <WiSnow size={100} color="#ecf0f1" />,          // Снег — белый
+      "13n": <WiSnow size={100} color="#ecf0f1" />,
+      "50d": <WiFog size={100} color="#95a5a6" />,            // Туман — серо-голубой
+      "50n": <WiFog size={100} color="#95a5a6" />,
     };
 
-    return codeMap[iconCode] || <WiDaySunny size={48} />;
+    return codeMap[iconCode] || <WiDaySunny size={48} color="#f39c12" />;
   };
 
   const getCountryFlag = (countryCode) => {

@@ -5,6 +5,7 @@ import Hero from "./components/Hero/Hero";
 import Cards from "./components/Cards/Cards";
 import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
+import Daily from "./components/Daily/Daily";
 import Slider from "./components/Slider/Slider";
 import SingUp from "./components/SingUp/SingUp";
 import Login from "./components/Login/Login";
@@ -13,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
+
 const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
 function App() {
@@ -22,41 +24,43 @@ function App() {
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- useEffect(() => {
-  document.title = "24 Forecast";
+  useEffect(() => {
+    document.title = "24 Forecast";
 
-  const storedAccount = localStorage.getItem("account");
+    const storedAccount = localStorage.getItem("account");
 
-  if (storedAccount === null) {
-    localStorage.setItem("account", JSON.stringify({
-      avatar: "https://freesvg.org/img/abstract-user-flat-3.png",
-    }));
-    setAvatarURL(user);
-  } else {
-    const account = JSON.parse(storedAccount);
-
-    if (!account.avatar) {
+    if (storedAccount === null) {
+      localStorage.setItem(
+        "account",
+        JSON.stringify({
+          avatar: user,
+        })
+      );
       setAvatarURL(user);
     } else {
-      setAvatarURL(account.avatar);
-    }
+      const account = JSON.parse(storedAccount);
 
-    if (account.userid && account.password) {
-      getProfileAPI(account.userid, account.password)
-        .then((data) => {
-          console.log("Account data from API:", data);
-          setAvatarURL(data.avatar || user);
-          setIsLoggedIn(true);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch profile:", error);
-          setAvatarURL(user);
-          setIsLoggedIn(false);
-        });
-    }
-  }
-}, []);
+      if (!account.avatar) {
+        setAvatarURL(user);
+      } else {
+        setAvatarURL(account.avatar);
+      }
 
+      if (account.userid && account.password) {
+        getProfileAPI(account.userid, account.password)
+          .then((data) => {
+            console.log("Account data from API:", data);
+            setAvatarURL(data.avatar || user);
+            setIsLoggedIn(true);
+          })
+          .catch((error) => {
+            console.error("Failed to fetch profile:", error);
+            setAvatarURL(user);
+            setIsLoggedIn(false);
+          });
+      }
+    }
+  }, []);
 
   function regButtonHandler() {
     const singUpBackdrop = document.querySelector(".singup");
@@ -166,7 +170,9 @@ function App() {
       formData[input.name] = input.value;
     });
 
-    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    formData.userid = Math.floor(
+      1000000000 + Math.random() * 9000000000
+    ).toString();
 
     backdrop.style.display = "none";
 
@@ -207,16 +213,24 @@ function App() {
         console.error("Помилка входу:", error);
       });
   };
-
+console.log(moreCity)
   return (
     <div className="App">
-      <Header regButtonHandler={regButtonHandler} avatar={avatarURL} isLoggedIn={isLoggedIn} />
+      <Header
+        regButtonHandler={regButtonHandler}
+        avatar={avatarURL}
+        isLoggedIn={isLoggedIn}
+      />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
-      <Pets />
       <More city={moreCity} />
+      {moreCity && <Daily city={moreCity}/>}
+      <Pets />
       <Slider />
-      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler} />
+      <SingUp
+        registerAccount={registerAccount}
+        logButtonHandler={logButtonHandler}
+      />
       <Login logInAccount={logInAccount} />
       <Footer />
     </div>

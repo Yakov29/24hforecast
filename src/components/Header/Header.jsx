@@ -6,7 +6,6 @@ import "./Header.css";
 import logo from "../../images/logo.svg";
 
 const Header = ({ regButtonHandler, avatar, isLoggedIn }) => {
-  console.log(avatar);
   return (
     <header className="header">
       <Container>

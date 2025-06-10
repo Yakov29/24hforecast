@@ -78,6 +78,7 @@
 }
 
 .cards__more {
+  color: #000;
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -99,6 +100,7 @@
 }
 
 .cards__delete {
+  color: #000000;
   position: absolute;
   bottom: 20px;
   right: 20px;

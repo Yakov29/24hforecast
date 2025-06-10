@@ -28,8 +28,6 @@ function App() {
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
-
   useEffect(() => {
     document.title = "24 Forecast";
 
@@ -52,8 +50,8 @@ function App() {
         setAvatarURL(account.avatar);
       }
 
-      if (account.userid && account.password) {
-        getProfileAPI(account.userid, account.password)
+      if (account.email && account.password) {
+        getProfileAPI(account.email, account.password)
           .then((data) => {
             console.log("Account data from API:", data);
             setAvatarURL(data.avatar || user);
@@ -70,8 +68,8 @@ function App() {
 
   function regButtonHandler() {
     const singUpBackdrop = document.querySelector(".singup");
-    const menuBackdrop = document.querySelector(".menu")
-    menuBackdrop.style.display = "none"
+    const menuBackdrop = document.querySelector(".menu");
+    menuBackdrop.style.display = "none";
     singUpBackdrop.style.display = "block";
   }
 
@@ -147,7 +145,7 @@ function App() {
           <li className="cards__data__item">
             <span className="cards__data__text">{day}</span>
           </li>
-        </ul>menuBackdrop
+        </ul>
         {iconUrl ? (
           <img className="cards__image" src={iconUrl} alt="Weather icon" />
         ) : (
@@ -208,7 +206,7 @@ function App() {
       formData[input.name] = input.value;
     });
 
-    getProfileAPI(formData.userid, formData.password)
+    getProfileAPI(formData.email, formData.password)
       .then((data) => {
         console.log("Успішний вхід:", data);
         backdrop.style.display = "none";
@@ -223,11 +221,15 @@ function App() {
   };
 
   function openMenu() {
-    const backdrop = document.querySelector(".menu")
-    backdrop.style.display = "block"
+    const backdrop = document.querySelector(".menu");
+    backdrop.style.display = "block";
   }
 
-
+  const logOut = () => {
+    localStorage.removeItem("account");
+    setAvatarURL(user);
+    setIsLoggedIn(false);
+  };
 
   return (
     <div className="App">
@@ -236,6 +238,7 @@ function App() {
         avatar={avatarURL}
         isLoggedIn={isLoggedIn}
         openMenu={openMenu}
+        logOut={logOut} 
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
@@ -250,7 +253,11 @@ function App() {
         logButtonHandler={logButtonHandler}
       />
       <Login logInAccount={logInAccount} />
-      <Menu avatar={avatarURL} regButtonHandler={regButtonHandler} isLoggedIn={isLoggedIn}
+      <Menu
+        avatar={avatarURL}
+        regButtonHandler={regButtonHandler}
+        isLoggedIn={isLoggedIn}
+        logOut={logOut} 
       />
       <Footer />
     </div>

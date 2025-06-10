@@ -8,27 +8,29 @@ const Login = ({logInAccount}) => {
         <h2 className="login__title">Log In</h2>
         <ul className="login__list">
           <li className="login__item">
-            <p className="login__description" htmlFor="userid">
-              User ID
-            </p>
+            <label className="login__description" htmlFor="email">
+              Email
+            </label>
             <input
               className="login__input"
-              type="number"
-              id="userid"
-              name="userid"
-              placeholder="User ID"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
             />
           </li>
           <li className="login__item">
-            <p className="login__description" htmlFor="password">
+            <label className="login__description" htmlFor="password">
               Password
-            </p>
+            </label>
             <input
               className="login__input"
               type="password"
               id="password"
               name="password"
               placeholder="Password"
+              required
             />
           </li>
 

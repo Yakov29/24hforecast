@@ -1,6 +1,6 @@
-function getProfileAPI(userid, password) {
-  console.log("Fetching profile for user:", userid, password);
-  return fetch(`https://681b262c17018fe5057a4ab8.mockapi.io/accounts?userid=${userid}&password=${password}`, {
+function getProfileAPI(email, password) {
+  console.log("Fetching profile for user:", email, password);
+  return fetch(`https://681b262c17018fe5057a4ab8.mockapi.io/accounts?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -14,8 +14,7 @@ function getProfileAPI(userid, password) {
       if (data.length === 0) {
         throw new Error("Невірний логін або пароль");
       }
-
-      return data[0]; // Вернуть первого пользователя
+      return data[0];
     });
 }
 

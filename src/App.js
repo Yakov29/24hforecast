@@ -182,7 +182,7 @@ function App() {
     }
   };
 
-  const registerAccount = (e) => {
+  const registerAccount = async (e) => {
     e.preventDefault();
     const form = e.target.closest(".singup__modal");
     const backdrop = document.querySelector(".singup");
@@ -193,24 +193,22 @@ function App() {
       formData[input.name] = input.value;
     });
 
-    formData.userid = Math.floor(
-      1000000000 + Math.random() * 9000000000
-    ).toString();
+    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
-    backdrop.style.display = "none";
-
-    pushProfileAPI(formData)
-      .then((data) => {
-        console.log("Account registered:", data);
-        localStorage.setItem("account", JSON.stringify(formData));
-        setAvatarURL(data.avatar || user);
-        setIsLoggedIn(true);
-        form.reset();
-      })
-      .catch((error) => {
-        console.error("Error registering account:", error);
-      });
+    try {
+      const data = await pushProfileAPI(formData);
+      console.log("Account registered:", data);
+      localStorage.setItem("account", JSON.stringify(formData));
+      setAvatarURL(data.avatar || user);
+      setIsLoggedIn(true);
+      form.reset();
+      backdrop.style.display = "none";
+    } catch (error) {
+      console.error("Error registering account:", error);
+      alert("Помилка реєстрації. Спробуйте пізніше.");
+    }
   };
+
 
   const logInAccount = (e) => {
     e.preventDefault();
@@ -255,7 +253,7 @@ function App() {
         avatar={avatarURL}
         isLoggedIn={isLoggedIn}
         openMenu={openMenu}
-        logOut={logOut} 
+        logOut={logOut}
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
@@ -274,7 +272,7 @@ function App() {
         avatar={avatarURL}
         regButtonHandler={regButtonHandler}
         isLoggedIn={isLoggedIn}
-        logOut={logOut} 
+        logOut={logOut}
       />
       <Footer />
     </div>

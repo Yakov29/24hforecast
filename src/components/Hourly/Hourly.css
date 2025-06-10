@@ -1,0 +1,52 @@
+.hourly {
+  padding: 20px 10px;
+}
+
+.hourly__data{
+      background-color: #e8e8e8;
+  border-radius: 20px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.hourly canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+  .hourly {
+    padding: 10px;
+  }
+
+  .hourly canvas {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hourly {
+    padding: 30px 40px;
+  }
+
+  .hourly canvas {
+    width: 90%;
+    height: 350px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hourly {
+    padding: 50px 80px;
+  }
+
+  .hourly canvas {
+    width: 80%;
+    height: 400px;
+  }
+}

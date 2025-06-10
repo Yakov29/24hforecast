@@ -5,15 +5,19 @@ import Hero from "./components/Hero/Hero";
 import Cards from "./components/Cards/Cards";
 import Pets from "./components/Pets/Pets";
 import More from "./components/More/More";
+import Hourly from "./components/Hourly/Hourly";
 import Daily from "./components/Daily/Daily";
 import Slider from "./components/Slider/Slider";
 import SingUp from "./components/SingUp/SingUp";
 import Login from "./components/Login/Login";
+import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
+
+import { Chart } from "chart.js";
 
 const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
@@ -23,6 +27,8 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
 
   useEffect(() => {
     document.title = "24 Forecast";
@@ -64,6 +70,8 @@ function App() {
 
   function regButtonHandler() {
     const singUpBackdrop = document.querySelector(".singup");
+    const menuBackdrop = document.querySelector(".menu")
+    menuBackdrop.style.display = "none"
     singUpBackdrop.style.display = "block";
   }
 
@@ -139,7 +147,7 @@ function App() {
           <li className="cards__data__item">
             <span className="cards__data__text">{day}</span>
           </li>
-        </ul>
+        </ul>menuBackdrop
         {iconUrl ? (
           <img className="cards__image" src={iconUrl} alt="Weather icon" />
         ) : (
@@ -213,18 +221,28 @@ function App() {
         console.error("Помилка входу:", error);
       });
   };
-console.log(moreCity)
+
+  function openMenu() {
+    const backdrop = document.querySelector(".menu")
+    backdrop.style.display = "block"
+  }
+
+
+
   return (
     <div className="App">
       <Header
         regButtonHandler={regButtonHandler}
         avatar={avatarURL}
         isLoggedIn={isLoggedIn}
+        openMenu={openMenu}
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
       <More city={moreCity} />
-      {moreCity && <Daily city={moreCity}/>}
+      {moreCity && <Hourly city={moreCity} />}
+      {moreCity && <Daily city={moreCity} />}
+
       <Pets />
       <Slider />
       <SingUp
@@ -232,6 +250,8 @@ console.log(moreCity)
         logButtonHandler={logButtonHandler}
       />
       <Login logInAccount={logInAccount} />
+      <Menu avatar={avatarURL} regButtonHandler={regButtonHandler} isLoggedIn={isLoggedIn}
+      />
       <Footer />
     </div>
   );

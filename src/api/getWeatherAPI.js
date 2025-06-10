@@ -27,6 +27,7 @@ const getWeatherAPI = async (city) => {
         }
 
         const data = await response.json();
+        console.log(data)
         return data;
 
 

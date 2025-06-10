@@ -3,9 +3,10 @@ import { Component } from "react";
 import Container from "../Container/Container";
 import "./Header.css";
 
+import { FaArrowRight } from "react-icons/fa";
 import logo from "../../images/logo.svg";
 
-const Header = ({ regButtonHandler, avatar, isLoggedIn }) => {
+const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu }) => {
   return (
     <header className="header">
       <Container>
@@ -32,6 +33,7 @@ const Header = ({ regButtonHandler, avatar, isLoggedIn }) => {
             Sign Up
           </button>
         )}
+        <button onClick={openMenu} className="header__menu">Menu <FaArrowRight/></button>
 
         <img src={avatar} className="header__user" alt="" />
       </Container>

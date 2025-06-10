@@ -1,5 +1,5 @@
 const pushProfileAPI = async (profile) => {
-  const url = "http://681b262c17018fe5057a4ab8.mockapi.io/accounts";
+  const url = "https://681b262c17018fe5057a4ab8.mockapi.io/accounts";
   const options = {
     method: "POST",
     headers: {

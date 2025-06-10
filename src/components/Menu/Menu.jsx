@@ -1,5 +1,4 @@
 import React from "react";
-import user from "../../images/user.svg";
 import "./Menu.css";
 
 const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {

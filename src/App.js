@@ -17,7 +17,6 @@ import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
 
-import { Chart } from "chart.js";
 
 const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
@@ -64,6 +63,24 @@ function App() {
           });
       }
     }
+
+    const backdrops = document.querySelectorAll(".singup, .login, .menu");
+
+    const backdropClickHandler = (e) => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.style.display = "none";
+      }
+    };
+
+    backdrops.forEach((backdrop) => {
+      backdrop.addEventListener("click", backdropClickHandler);
+    });
+
+    return () => {
+      backdrops.forEach((backdrop) => {
+        backdrop.removeEventListener("click", backdropClickHandler);
+      });
+    };
   }, []);
 
   function regButtonHandler() {

@@ -92,6 +92,9 @@ const Cards = ({ getMoreData }) => {
     let country = "";
     let iconElement = <div className="cards__image-placeholder"></div>;
 
+    // Берём название города из API
+    const cityNameFromAPI = data?.name;
+
     if (data) {
       temp = Math.round(data.main.temp) + "℃";
       country = data.sys.country;
@@ -101,7 +104,7 @@ const Cards = ({ getMoreData }) => {
 
     return (
       <li className="cards__item" key={index} onClick={getMoreData}>
-        <span className="cards__city">{city}</span>
+        <span className="cards__city">{cityNameFromAPI || city}</span>
         <span className="cards__country">{getCountryFlag(country)}</span>
         <h4 className="cards__time">{time}</h4>
         <ul className="cards__data">
@@ -117,7 +120,10 @@ const Cards = ({ getMoreData }) => {
         <button className="cards__more">See more</button>
         <button
           className="cards__delete"
-          onClick={() => handleDeleteCity(city)}
+          onClick={(e) => {
+            e.stopPropagation();  // чтобы клик на delete не срабатывал getMoreData
+            handleDeleteCity(city);
+          }}
           aria-label={`Delete ${city}`}
         >
           <MdDeleteOutline />
@@ -125,6 +131,7 @@ const Cards = ({ getMoreData }) => {
       </li>
     );
   };
+
 
   return (
     <section className="cards">

@@ -60,7 +60,7 @@ const Daily = ({ city }) => {
       <Container>
         <div className="daily__data">
           <h2 className="daily__title">
-            Прогноз на {weather.daily.length} {weather.daily.length === 1 ? "день" : "дней"}
+          {weather.daily.length}-day forecast
           </h2>
           <ul className="daily__list">
             {weather.daily.map(({ date, avgTemp, description }) => (

@@ -59,7 +59,9 @@ const Daily = ({ city }) => {
     <section className="daily">
       <Container>
         <div className="daily__data">
-          <h2 className="daily__title">5-day forecast</h2>
+          <h2 className="daily__title">
+            Прогноз на {weather.daily.length} {weather.daily.length === 1 ? "день" : "дней"}
+          </h2>
           <ul className="daily__list">
             {weather.daily.map(({ date, avgTemp, description }) => (
               <li key={date} className="daily__item">
@@ -75,6 +77,7 @@ const Daily = ({ city }) => {
       </Container>
     </section>
   );
+
 };
 
 export default Daily;

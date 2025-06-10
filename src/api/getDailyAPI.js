@@ -17,7 +17,7 @@ const getDailyAPI = async (city) => {
     dayTemps[date].push(item.main.temp);
   });
 
-  const result = Object.entries(dayTemps).slice(0, 5).map(([date, temps]) => ({
+  const result = Object.entries(dayTemps).map(([date, temps]) => ({
     date,
     avgTemp: (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1),
     description: data.list.find(item => item.dt_txt.startsWith(date)).weather[0].description

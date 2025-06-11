@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/24hforecast/static/css/main.37ce4aff.css",
-    "main.js": "/24hforecast/static/js/main.638f6886.js",
+    "main.js": "/24hforecast/static/js/main.b924a3e5.js",
     "static/media/herobg.png": "/24hforecast/static/media/herobg.48da5051f8e4d2b910c3.png",
     "static/media/whatsapp.svg": "/24hforecast/static/media/whatsapp.494edb9c141e3e12b3c4cd17aecb246c.svg",
     "static/media/instagram.svg": "/24hforecast/static/media/instagram.32e2cc81b7464e0125a07c2562d3eabf.svg",
@@ -9,10 +9,10 @@
     "static/media/logo.svg": "/24hforecast/static/media/logo.31214a6ca57e3d4a329b185cdd9c102f.svg",
     "index.html": "/24hforecast/index.html",
     "main.37ce4aff.css.map": "/24hforecast/static/css/main.37ce4aff.css.map",
-    "main.638f6886.js.map": "/24hforecast/static/js/main.638f6886.js.map"
+    "main.b924a3e5.js.map": "/24hforecast/static/js/main.b924a3e5.js.map"
   },
   "entrypoints": [
     "static/css/main.37ce4aff.css",
-    "static/js/main.638f6886.js"
+    "static/js/main.b924a3e5.js"
   ]
 }

@@ -17,7 +17,7 @@ const More = ({ city }) => {
   if (!weather) return null;
 
   return (
-    <section className="more">
+    <section className="more" id="more">
       <Container>
         <div className="more__data">
           <ul className="more__list">

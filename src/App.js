@@ -182,32 +182,37 @@ function App() {
     }
   };
 
-  const registerAccount = async (e) => {
-    e.preventDefault();
-    const form = e.target.closest(".singup__modal");
+ const registerAccount = async (e) => {
+  e.preventDefault();
+  const form = e.target; // e.target — это сама форма
+
+  const inputs = form.querySelectorAll(".singup__input[name]");
+  const formData = {};
+  inputs.forEach((input) => {
+    formData[input.name] = input.value;
+  });
+
+  if (!formData.avatar) {
+    formData.avatar = user; // ставим дефолтный аватар, если поле пустое
+  }
+
+  formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
+  try {
+    const data = await pushProfileAPI(formData);
+    console.log("Account registered:", data);
+    localStorage.setItem("account", JSON.stringify(formData));
+    setAvatarURL(data.avatar || user);
+    setIsLoggedIn(true);
+    form.reset();
     const backdrop = document.querySelector(".singup");
-    const inputs = form.querySelectorAll(".singup__input[name]");
+    backdrop.style.display = "none";
+  } catch (error) {
+    console.error("Error registering account:", error);
+    alert("Помилка реєстрації. Спробуйте пізніше.");
+  }
+};
 
-    const formData = {};
-    inputs.forEach((input) => {
-      formData[input.name] = input.value;
-    });
-
-    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
-
-    try {
-      const data = await pushProfileAPI(formData);
-      console.log("Account registered:", data);
-      localStorage.setItem("account", JSON.stringify(formData));
-      setAvatarURL(data.avatar || user);
-      setIsLoggedIn(true);
-      form.reset();
-      backdrop.style.display = "none";
-    } catch (error) {
-      console.error("Error registering account:", error);
-      alert("Помилка реєстрації. Спробуйте пізніше.");
-    }
-  };
 
 
   const logInAccount = (e) => {

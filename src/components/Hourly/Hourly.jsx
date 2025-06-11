@@ -5,7 +5,6 @@ import getHourlyAPI from "../../api/getHourlyAPI";
 
 import './Hourly.css';
 
-
 const Hourly = ({ city }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
@@ -15,19 +14,32 @@ const Hourly = ({ city }) => {
             if (!data || !data.list) return;
 
             const now = new Date();
-            const todayDateStr = now.toISOString().split('T')[0]; // yyyy-mm-dd сегодняшняя дата
+            const todayDateStr = now.toISOString().split('T')[0];
 
-            // Отфильтровываем все записи сегодняшнего дня (все часы 00:00 - 23:00)
             const forecastToday = data.list.filter(item => {
                 const dateStr = item.dt_txt.split(' ')[0];
                 return dateStr === todayDateStr;
             });
 
-            const labels = forecastToday.map(item =>
-                new Date(item.dt_txt).getHours() + ":00"
-            );
+            const tempByHour = {};
+            forecastToday.forEach(item => {
+                const hour = new Date(item.dt_txt).getHours();
+                tempByHour[hour] = item.main.temp;
+            });
 
-            const temperatures = forecastToday.map(item => item.main.temp);
+            const labels = [];
+            const temperatures = [];
+
+            for (let hour = 0; hour < 24; hour++) {
+                labels.push(hour + ":00");
+                // Если данных нет, подставляем предыдущую температуру чтобы линия не прерывалась
+                if (tempByHour.hasOwnProperty(hour)) {
+                    temperatures.push(tempByHour[hour]);
+                } else {
+                    // Подставим значение предыдущего часа или null, если первый час
+                    temperatures.push(temperatures.length ? temperatures[temperatures.length - 1] : null);
+                }
+            }
 
             const hourlyData = {
                 labels,
@@ -40,6 +52,7 @@ const Hourly = ({ city }) => {
                         borderWidth: 2,
                         tension: 0.4,
                         fill: false,
+                        spanGaps: true // чтобы линия не прерывалась на null
                     },
                 ],
             };
@@ -67,7 +80,8 @@ const Hourly = ({ city }) => {
                                 minRotation: 0
                             },
                             grid: {
-                                color: '#00000022'
+                                color: '#00000022',
+                                drawOnChartArea: true
                             }
                         },
                         y: {
@@ -76,7 +90,8 @@ const Hourly = ({ city }) => {
                                 color: '#000'
                             },
                             grid: {
-                                color: '#00000022'
+                                color: '#00000022',
+                                drawOnChartArea: true
                             }
                         }
                     }
@@ -91,15 +106,12 @@ const Hourly = ({ city }) => {
         };
     }, [city]);
 
-
-
     return (
         <section className="hourly">
             <Container>
                 <div className="hourly__data">
                     <canvas ref={chartRef}></canvas>
                 </div>
-
             </Container>
         </section>
     );

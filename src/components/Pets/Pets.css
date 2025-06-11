@@ -18,7 +18,6 @@
 }
 
 .pets__item {
-  width: 260px;
   box-sizing: border-box;
 }
 
@@ -36,10 +35,9 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-   color: #000;
+  color: #000;
 }
 
-/* Мобильные устройства (максимум 480px) */
 @media (max-width: 480px) {
   .pets {
     margin-top: 40px;
@@ -71,7 +69,6 @@
   }
 }
 
-/* Планшеты и средние экраны (от 481px до 1199px) */
 @media (min-width: 481px) and (max-width: 1199px) {
   .pets__item {
     width: 45%;
@@ -83,3 +80,12 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .pets__item {
+    width: calc((100% - 60px) / 4);
+  }
+
+  .pets__image {
+    height: 200px;
+  }
+}

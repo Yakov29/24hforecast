@@ -5,7 +5,7 @@
 .cards__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 90px;
+  gap: 30px;
   justify-content: center;
 }
 
@@ -176,7 +176,8 @@
 
 @media (min-width: 481px) and (max-width: 1199px) {
   .cards__list {
-    gap: 50px;
+    gap: 30px;
+    justify-content: center;
   }
 
   .cards__item {
@@ -239,11 +240,13 @@
 
 @media (min-width: 1200px) {
   .cards__list {
-    gap: 90px;
+    gap: 30px;
+    justify-content: center;
   }
 
   .cards__item {
-    width: 320px;
+    width: calc(33.333% - 20px);
+    max-width: none;
   }
 
   .cards__city,

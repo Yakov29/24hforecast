@@ -34,7 +34,7 @@ const Hero = ({ weatherHandler, weatherSaver }) => {
         <div className="hero__box" data-aos="zoom-in" data-aos-delay="300">
           <input
             type="search"
-            placeholder="Search location..."
+            placeholder="Add location..."
             className="hero__input"
             onChange={weatherHandler}
           />

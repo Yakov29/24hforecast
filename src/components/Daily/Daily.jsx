@@ -3,6 +3,8 @@ import getDailyAPI from "../../api/getDailyAPI";
 import { WiDaySunny, WiCloud, WiRain, WiSnow, WiDayCloudy } from "react-icons/wi";
 import "./Daily.css";
 import Container from "../Container/Container";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Daily = ({ city }) => {
   const [weather, setWeather] = useState(null);
@@ -35,13 +37,15 @@ const Daily = ({ city }) => {
     if (desc.includes("partly")) {
       return <WiDayCloudy size={24} color="#f39c12" />;
     }
-    // Иконка по умолчанию
     return <WiDaySunny size={24} color="#f39c12" />;
   };
 
   useEffect(() => {
-    if (!city) return;
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
+  useEffect(() => {
+    if (!city) return;
     setLoading(true);
     setError(null);
 
@@ -53,15 +57,13 @@ const Daily = ({ city }) => {
 
   if (loading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка: {error}</div>;
-  if (!weather) return null;
+  if (!weather || !weather.daily) return null;
 
   return (
     <section className="daily">
       <Container>
-        <div className="daily__data">
-          <h2 className="daily__title">
-          {weather.daily.length}-day forecast
-          </h2>
+        <div className="daily__data" data-aos="fade-up">
+          <h2 className="daily__title">{weather.daily.length}-day forecast</h2>
           <ul className="daily__list">
             {weather.daily.map(({ date, avgTemp, description }) => (
               <li key={date} className="daily__item">
@@ -77,7 +79,6 @@ const Daily = ({ city }) => {
       </Container>
     </section>
   );
-
 };
 
 export default Daily;

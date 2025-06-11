@@ -13,12 +13,17 @@ import {
   WiSnow,
   WiFog,
 } from "react-icons/wi";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./Cards.css";
 
 const Cards = ({ getMoreData }) => {
   const [cities, setCities] = useState([]);
   const [weatherData, setWeatherData] = useState({});
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
 
   useEffect(() => {
     const savedCities = JSON.parse(localStorage.getItem("city") || "[]");
@@ -45,23 +50,23 @@ const Cards = ({ getMoreData }) => {
 
   const getWeatherIcon = (iconCode) => {
     const codeMap = {
-      "01d": <WiDaySunny size={100} color="#f39c12" />,      // Солнце — желтый
-      "01n": <WiNightClear size={100} color="#f1c40f" />,    // Ночь — желтый чуть светлее
-      "02d": <WiCloud size={100} color="#7f8c8d" />,         // Облачно — серый
+      "01d": <WiDaySunny size={100} color="#f39c12" />,
+      "01n": <WiNightClear size={100} color="#f1c40f" />,
+      "02d": <WiCloud size={100} color="#7f8c8d" />,
       "02n": <WiCloud size={100} color="#7f8c8d" />,
-      "03d": <WiCloudy size={100} color="#95a5a6" />,        // Облачно сильнее — светло-серый
+      "03d": <WiCloudy size={100} color="#95a5a6" />,
       "03n": <WiCloudy size={100} color="#95a5a6" />,
       "04d": <WiCloudy size={100} color="#7f8c8d" />,
       "04n": <WiCloudy size={100} color="#7f8c8d" />,
-      "09d": <WiShowers size={100} color="#3498db" />,       // Ливень — синий
+      "09d": <WiShowers size={100} color="#3498db" />,
       "09n": <WiShowers size={100} color="#3498db" />,
-      "10d": <WiRain size={100} color="#2980b9" />,           // Дождь — синий темный
+      "10d": <WiRain size={100} color="#2980b9" />,
       "10n": <WiRain size={100} color="#2980b9" />,
-      "11d": <WiThunderstorm size={100} color="#8e44ad" />,  // Гроза — фиолетовый
+      "11d": <WiThunderstorm size={100} color="#8e44ad" />,
       "11n": <WiThunderstorm size={100} color="#8e44ad" />,
-      "13d": <WiSnow size={100} color="#ecf0f1" />,          // Снег — белый
+      "13d": <WiSnow size={100} color="#ecf0f1" />,
       "13n": <WiSnow size={100} color="#ecf0f1" />,
-      "50d": <WiFog size={100} color="#95a5a6" />,            // Туман — серо-голубой
+      "50d": <WiFog size={100} color="#95a5a6" />,
       "50n": <WiFog size={100} color="#95a5a6" />,
     };
 
@@ -91,8 +96,6 @@ const Cards = ({ getMoreData }) => {
     let temp = "Not Found";
     let country = "";
     let iconElement = <div className="cards__image-placeholder"></div>;
-
-    // Берём название города из API
     const cityNameFromAPI = data?.name;
 
     if (data) {
@@ -103,7 +106,12 @@ const Cards = ({ getMoreData }) => {
     }
 
     return (
-      <li className="cards__item" key={index} onClick={getMoreData}>
+      <li
+        className="cards__item"
+        key={index}
+        onClick={getMoreData}
+        data-aos="fade-up"
+      >
         <span className="cards__city">{cityNameFromAPI || city}</span>
         <span className="cards__country">{getCountryFlag(country)}</span>
         <h4 className="cards__time">{time}</h4>
@@ -121,7 +129,7 @@ const Cards = ({ getMoreData }) => {
         <button
           className="cards__delete"
           onClick={(e) => {
-            e.stopPropagation();  // чтобы клик на delete не срабатывал getMoreData
+            e.stopPropagation();
             handleDeleteCity(city);
           }}
           aria-label={`Delete ${city}`}
@@ -132,13 +140,10 @@ const Cards = ({ getMoreData }) => {
     );
   };
 
-
   return (
     <section className="cards">
       <Container>
-        <ul className="cards__list">
-          {cities.map((city, index) => renderCard(city, index))}
-        </ul>
+        <ul className="cards__list">{cities.map((city, index) => renderCard(city, index))}</ul>
       </Container>
     </section>
   );

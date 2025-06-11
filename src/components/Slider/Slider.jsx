@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Slider.css";
 import Container from "../Container/Container";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const images = [
   "https://img.freepik.com/free-photo/morskie-oko-tatry_1204-510.jpg?semt=ais_hybrid&w=740",
@@ -15,6 +17,10 @@ const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    AOS.init({ duration: 700, once: true });
+  }, []);
 
   const getImage = (offset) => {
     const total = images.length;
@@ -37,7 +43,7 @@ const Slider = () => {
   };
 
   return (
-    <section className="slider">
+    <section className="slider" data-aos="fade-up">
       <Container>
         <h2 className="slider__title">Beautiful Nature</h2>
         <div className="slider__box">

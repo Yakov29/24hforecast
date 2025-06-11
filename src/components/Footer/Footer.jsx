@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../Container/Container";
 
-import { BiLogoInstagramAlt } from "react-icons/bi";
-import { FaSquareFacebook } from "react-icons/fa6";
-import { FaWhatsappSquare } from "react-icons/fa";
+import instagram from "../../images/instagram.svg";
+import facebook from "../../images/facebook.svg";
+import whatsapp from "../../images/whatsapp.svg";
 
-import instagram from "../../images/instagram.svg"
-import facebook from "../../images/facebook.svg"
-import whatsapp from "../../images/whatsapp.svg"
-
-
-
-import "./Footer.css"
+import "./Footer.css";
 
 import logo from "../../images/logo.png";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Footer = () => {
+  useEffect(() => {
+    AOS.init({ duration: 700, once: true });
+  }, []);
+
   return (
-    <footer className="footer">
+    <footer className="footer" data-aos="fade-up">
       <Container>
-        <img className="footer__logo" src={logo} alt="" />
+        <img className="footer__logo" src={logo} alt="logo" />
         <ul className="footer__links">
           <li className="footer__item">
             <h3 className="footer__title">Address</h3>
@@ -47,15 +48,21 @@ const Footer = () => {
           </li>
         </ul>
         <ul className="footer__contact">
-            <li className="footer__nwtwork">
-                <a className="footer__icon" href="https://www.instagram.com/d.yakov29/"><img src={instagram} alt="" /></a>
-            </li>
-            <li className="footer__nwtwork">
-                <a className="footer__icon" href="https://www.facebook.com/"><img src={facebook} alt="" /></a>
-            </li>
-            <li className="footer__nwtwork">
-                <a className="footer__icon" href="https://www.whatsapp.com/"><img src={whatsapp} alt="" /></a>
-            </li>
+          <li className="footer__network">
+            <a className="footer__icon" href="https://www.instagram.com/d.yakov29/">
+              <img src={instagram} alt="Instagram" />
+            </a>
+          </li>
+          <li className="footer__network">
+            <a className="footer__icon" href="https://www.facebook.com/">
+              <img src={facebook} alt="Facebook" />
+            </a>
+          </li>
+          <li className="footer__network">
+            <a className="footer__icon" href="https://www.whatsapp.com/">
+              <img src={whatsapp} alt="WhatsApp" />
+            </a>
+          </li>
         </ul>
       </Container>
     </footer>

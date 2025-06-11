@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./Menu.css";
 
 const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
+  useEffect(() => {
+    AOS.init({ duration: 500, once: true });
+  }, []);
+
   return (
-    <div className="backdrop menu">
+    <div className="backdrop menu" data-aos="fade-down">
       <form className="menu__modal">
         <ul className="menu__list">
           <li className="menu__item">
@@ -33,11 +39,7 @@ const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
               Sign Up
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={logOut}
-              className="menu__button"
-            >
+            <button type="button" onClick={logOut} className="menu__button">
               Log Out
             </button>
           )}

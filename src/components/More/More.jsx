@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../Container/Container";
 import getWeatherAPI from "../../api/getWeatherAPI";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./More.css";
 
 const More = ({ city }) => {
   const [weather, setWeather] = React.useState(null);
+
+  useEffect(() => {
+    AOS.init({ duration: 700, once: true });
+  }, []);
 
   React.useEffect(() => {
     if (city) {
@@ -17,7 +23,7 @@ const More = ({ city }) => {
   if (!weather) return null;
 
   return (
-    <section className="more" id="more">
+    <section className="more" id="more" data-aos="fade-up">
       <Container>
         <div className="more__data">
           <ul className="more__list">
@@ -27,7 +33,7 @@ const More = ({ city }) => {
               <img
                 className="more__icon"
                 src="https://cdn-icons-png.flaticon.com/512/11331/11331728.png"
-                alt=""
+                alt="Feels like icon"
               />
             </li>
             <li className="more__item">
@@ -42,7 +48,7 @@ const More = ({ city }) => {
               <img
                 className="more__icon"
                 src="https://cdn-icons-png.flaticon.com/512/1332/1332316.png"
-                alt=""
+                alt="Humidity icon"
               />
             </li>
             <li className="more__item">
@@ -51,7 +57,7 @@ const More = ({ city }) => {
               <img
                 className="more__icon"
                 src="https://cdn-icons-png.flaticon.com/512/4115/4115904.png"
-                alt=""
+                alt="Pressure icon"
               />
             </li>
             <li className="more__item">
@@ -60,7 +66,7 @@ const More = ({ city }) => {
               <img
                 className="more__icon"
                 src="https://cdn.iconscout.com/icon/free/png-256/free-wind-icon-download-in-svg-png-gif-file-formats--air-turbine-weather-windy-flat-pack-icons-38919.png?f=webp&w=256"
-                alt=""
+                alt="Wind speed icon"
               />
             </li>
             <li className="more__item">
@@ -73,7 +79,7 @@ const More = ({ city }) => {
               <img
                 className="more__icon"
                 src="https://cdn-icons-png.flaticon.com/512/802/802067.png"
-                alt=""
+                alt="Visibility icon"
               />
             </li>
           </ul>

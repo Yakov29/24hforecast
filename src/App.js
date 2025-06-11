@@ -13,11 +13,11 @@ import Login from "./components/Login/Login";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 import Arrows from "./components/Arrows/Arrows";
+import ToMore from "./components/ToMore/ToMore";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
-
 
 const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
@@ -53,12 +53,10 @@ function App() {
       if (account.email && account.password) {
         getProfileAPI(account.email, account.password)
           .then((data) => {
-            console.log("Account data from API:", data);
             setAvatarURL(data.avatar || user);
             setIsLoggedIn(true);
           })
-          .catch((error) => {
-            console.error("Failed to fetch profile:", error);
+          .catch(() => {
             setAvatarURL(user);
             setIsLoggedIn(false);
           });
@@ -99,8 +97,7 @@ function App() {
   }
 
   function weatherHandler(e) {
-    const value = e.target.value;
-    setCity(value);
+    setCity(e.target.value);
   }
 
   function weatherSaver() {
@@ -180,13 +177,17 @@ function App() {
         .closest(".cards__item")
         .querySelector(".cards__city").textContent;
       setMoreCity(cityName);
+      const toMoreBlock = document.querySelector(".tomore");
+      if (toMoreBlock) {
+        toMoreBlock.style.display = "flex";
+      }
     }
   };
 
+
   const registerAccount = async (e) => {
     e.preventDefault();
-    const form = e.target; // e.target — это сама форма
-
+    const form = e.target;
     const inputs = form.querySelectorAll(".singup__input[name]");
     const formData = {};
     inputs.forEach((input) => {
@@ -194,14 +195,13 @@ function App() {
     });
 
     if (!formData.avatar) {
-      formData.avatar = user; // ставим дефолтный аватар, если поле пустое
+      formData.avatar = user;
     }
 
     formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
     try {
       const data = await pushProfileAPI(formData);
-      console.log("Account registered:", data);
       localStorage.setItem("account", JSON.stringify(formData));
       setAvatarURL(data.avatar || user);
       setIsLoggedIn(true);
@@ -209,19 +209,15 @@ function App() {
       const backdrop = document.querySelector(".singup");
       backdrop.style.display = "none";
     } catch (error) {
-      console.error("Error registering account:", error);
       alert("Помилка реєстрації. Спробуйте пізніше.");
     }
   };
-
-
 
   const logInAccount = (e) => {
     e.preventDefault();
     const form = e.target.closest(".login__modal");
     const backdrop = document.querySelector(".login");
     const inputs = form.querySelectorAll(".login__input[name]");
-
     const formData = {};
     inputs.forEach((input) => {
       formData[input.name] = input.value;
@@ -229,7 +225,6 @@ function App() {
 
     getProfileAPI(formData.email, formData.password)
       .then((data) => {
-        console.log("Успішний вхід:", data);
         backdrop.style.display = "none";
         localStorage.setItem("account", JSON.stringify(formData));
         setAvatarURL(data.avatar || user);
@@ -237,7 +232,6 @@ function App() {
       })
       .catch((error) => {
         alert(error.message);
-        console.error("Помилка входу:", error);
       });
   };
 
@@ -252,9 +246,6 @@ function App() {
     setIsLoggedIn(false);
   };
 
-
- 
-
   return (
     <div className="App">
       <Header
@@ -265,26 +256,18 @@ function App() {
         logOut={logOut}
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
-      <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} />
+      <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <More city={moreCity} />
       {moreCity && <Hourly city={moreCity} />}
       {moreCity && <Daily city={moreCity} />}
-
       <Pets />
       <Slider />
-      <SingUp
-        registerAccount={registerAccount}
-        logButtonHandler={logButtonHandler}
-      />
+      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler} />
       <Login logInAccount={logInAccount} />
-      <Menu
-        avatar={avatarURL}
-        regButtonHandler={regButtonHandler}
-        isLoggedIn={isLoggedIn}
-        logOut={logOut}
-      />
+      <Menu avatar={avatarURL} regButtonHandler={regButtonHandler} isLoggedIn={isLoggedIn} logOut={logOut} />
       <Footer />
       <Arrows />
+      <ToMore />
     </div>
   );
 }

@@ -13,17 +13,9 @@ const Hourly = ({ city }) => {
         getHourlyAPI(city).then((data) => {
             if (!data || !data.list) return;
 
-            const now = new Date();
-            const todayDateStr = now.toISOString().split('T')[0];
-
-            const forecastToday = data.list.filter(item => {
-                const dateStr = item.dt_txt.split(' ')[0];
-                return dateStr === todayDateStr;
-            });
-
             const tempByHour = {};
-            forecastToday.forEach(item => {
-                const hour = new Date(item.dt_txt).getHours();
+            data.list.forEach(item => {
+                const hour = new Date(item.dt * 1000).getHours();
                 tempByHour[hour] = item.main.temp;
             });
 
@@ -31,12 +23,10 @@ const Hourly = ({ city }) => {
             const temperatures = [];
 
             for (let hour = 0; hour < 24; hour++) {
-                labels.push(hour + ":00");
-                // Если данных нет, подставляем предыдущую температуру чтобы линия не прерывалась
+                labels.push(`${hour}:00`);
                 if (tempByHour.hasOwnProperty(hour)) {
                     temperatures.push(tempByHour[hour]);
                 } else {
-                    // Подставим значение предыдущего часа или null, если первый час
                     temperatures.push(temperatures.length ? temperatures[temperatures.length - 1] : null);
                 }
             }
@@ -52,7 +42,7 @@ const Hourly = ({ city }) => {
                         borderWidth: 2,
                         tension: 0.4,
                         fill: false,
-                        spanGaps: true // чтобы линия не прерывалась на null
+                        spanGaps: true,
                     },
                 ],
             };
@@ -68,8 +58,8 @@ const Hourly = ({ city }) => {
                     responsive: true,
                     plugins: {
                         legend: {
-                            display: false
-                        }
+                            display: false,
+                        },
                     },
                     scales: {
                         x: {
@@ -77,25 +67,25 @@ const Hourly = ({ city }) => {
                             ticks: {
                                 color: '#000',
                                 maxRotation: 0,
-                                minRotation: 0
+                                minRotation: 0,
                             },
                             grid: {
                                 color: '#00000022',
-                                drawOnChartArea: true
-                            }
+                                drawOnChartArea: true,
+                            },
                         },
                         y: {
                             beginAtZero: false,
                             ticks: {
-                                color: '#000'
+                                color: '#000',
                             },
                             grid: {
                                 color: '#00000022',
-                                drawOnChartArea: true
-                            }
-                        }
-                    }
-                }
+                                drawOnChartArea: true,
+                            },
+                        },
+                    },
+                },
             });
         });
 

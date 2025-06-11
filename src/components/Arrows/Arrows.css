@@ -1,16 +1,21 @@
-.arrow{
-    position: fixed;
-    width: 70px;
-    height: 70px;
-    right: 25px;
-    bottom: 25px;
-    background-color: #ffb36c;
-    border: 3px solid #000;
-    border-radius: 50%;
-    color: #000;
-    font-size: 30px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.arrow {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  right: 25px;
+  bottom: 25px;
+  background-color: #ffb36c;
+  border: 3px solid #000;
+  border-radius: 50%;
+  color: #000;
+  font-size: 30px; /* размер иконки */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow svg {
+  width: 30px;
+  height: 30px;
 }

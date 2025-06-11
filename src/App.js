@@ -12,6 +12,7 @@ import SingUp from "./components/SingUp/SingUp";
 import Login from "./components/Login/Login";
 import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
+import Arrows from "./components/Arrows/Arrows";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
@@ -182,36 +183,36 @@ function App() {
     }
   };
 
- const registerAccount = async (e) => {
-  e.preventDefault();
-  const form = e.target; // e.target — это сама форма
+  const registerAccount = async (e) => {
+    e.preventDefault();
+    const form = e.target; // e.target — это сама форма
 
-  const inputs = form.querySelectorAll(".singup__input[name]");
-  const formData = {};
-  inputs.forEach((input) => {
-    formData[input.name] = input.value;
-  });
+    const inputs = form.querySelectorAll(".singup__input[name]");
+    const formData = {};
+    inputs.forEach((input) => {
+      formData[input.name] = input.value;
+    });
 
-  if (!formData.avatar) {
-    formData.avatar = user; // ставим дефолтный аватар, если поле пустое
-  }
+    if (!formData.avatar) {
+      formData.avatar = user; // ставим дефолтный аватар, если поле пустое
+    }
 
-  formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
-  try {
-    const data = await pushProfileAPI(formData);
-    console.log("Account registered:", data);
-    localStorage.setItem("account", JSON.stringify(formData));
-    setAvatarURL(data.avatar || user);
-    setIsLoggedIn(true);
-    form.reset();
-    const backdrop = document.querySelector(".singup");
-    backdrop.style.display = "none";
-  } catch (error) {
-    console.error("Error registering account:", error);
-    alert("Помилка реєстрації. Спробуйте пізніше.");
-  }
-};
+    try {
+      const data = await pushProfileAPI(formData);
+      console.log("Account registered:", data);
+      localStorage.setItem("account", JSON.stringify(formData));
+      setAvatarURL(data.avatar || user);
+      setIsLoggedIn(true);
+      form.reset();
+      const backdrop = document.querySelector(".singup");
+      backdrop.style.display = "none";
+    } catch (error) {
+      console.error("Error registering account:", error);
+      alert("Помилка реєстрації. Спробуйте пізніше.");
+    }
+  };
 
 
 
@@ -251,6 +252,9 @@ function App() {
     setIsLoggedIn(false);
   };
 
+
+ 
+
   return (
     <div className="App">
       <Header
@@ -280,6 +284,7 @@ function App() {
         logOut={logOut}
       />
       <Footer />
+      <Arrows />
     </div>
   );
 }

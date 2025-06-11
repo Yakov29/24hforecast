@@ -28,7 +28,7 @@ const Arrows = () => {
 
   return (
     <button onClick={handleClick} className="arrow">
-      {isAtBottom ? <FaArrowUp /> : <FaArrowDown />}
+      {isAtBottom ? <FaArrowUp size={30} /> : <FaArrowDown size={30} />}
     </button>
   );
 };

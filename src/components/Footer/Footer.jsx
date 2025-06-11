@@ -18,7 +18,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="footer" data-aos="fade-up">
+    <footer className="footer" id="footer">
       <Container>
         <img className="footer__logo" src={logo} alt="logo" />
         <ul className="footer__links">

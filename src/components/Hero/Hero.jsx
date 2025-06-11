@@ -17,7 +17,7 @@ const Hero = ({ weatherHandler, weatherSaver }) => {
   };
 
   return (
-    <section className="hero" data-aos="fade-up">
+    <section className="hero" data-aos="fade-up" id="hero">
       <Container>
         <h1 className="hero__title" data-aos="fade-down">Weather dashboard</h1>
         <ul className="hero__list">

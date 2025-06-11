@@ -19,17 +19,17 @@ const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
 
         <ul className="header__list" data-aos="fade-up">
           <li className="heder__item">
-            <a href="#" className="header__link" data-aos="fade-up" data-aos-delay="100">
+            <a href="#hero" className="header__link" data-aos="fade-up" data-aos-delay="100">
               Who we are
             </a>
           </li>
           <li className="heder__item">
-            <a href="#" className="header__link" data-aos="fade-up" data-aos-delay="200">
+            <a href="#footer" className="header__link" data-aos="fade-up" data-aos-delay="200">
               Contacts
             </a>
           </li>
           <li className="heder__item">
-            <a href="#" className="header__link" data-aos="fade-up" data-aos-delay="300">
+            <a href="#" className="header__link" data-aos="fade-up" data-aos-delay="300" onClick={openMenu}>
               Menu
             </a>
           </li>

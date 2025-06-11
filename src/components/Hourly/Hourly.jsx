@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Container from "../Container/Container";
 import { Chart } from "chart.js/auto";
 import getHourlyAPI from "../../api/getHourlyAPI";
-
 import './Hourly.css';
 
 const Hourly = ({ city }) => {
@@ -43,6 +42,8 @@ const Hourly = ({ city }) => {
                         tension: 0.4,
                         fill: false,
                         spanGaps: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
                     },
                 ],
             };
@@ -60,6 +61,12 @@ const Hourly = ({ city }) => {
                         legend: {
                             display: false,
                         },
+                        tooltip: {
+                            enabled: false,
+                        },
+                    },
+                    interaction: {
+                        mode: null,
                     },
                     scales: {
                         x: {

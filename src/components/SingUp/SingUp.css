@@ -59,61 +59,65 @@
   cursor: pointer;
 }
 
-/* --------- Адаптив --------- */
-
-/* Mobile: от 321px до 480px */
 @media (min-width: 321px) and (max-width: 480px) {
   .singup__modal {
     width: 90%;
     max-width: 350px;
     padding: 24px 40px;
   }
+
   .singup__input {
     height: 45px;
     padding-left: 15px;
   }
+
   .singup__button {
     width: 100px;
     height: 35px;
   }
+
   .singup__login {
     font-size: 9px;
   }
 }
 
-/* Tablet: от 769px до 1199px */
 @media (min-width: 769px) and (max-width: 1199px) {
   .singup__modal {
     width: 500px;
     padding: 28px 60px;
   }
+
   .singup__input {
     height: 48px;
     padding-left: 18px;
   }
+
   .singup__button {
     width: 110px;
     height: 36px;
   }
+
   .singup__login {
     font-size: 10px;
   }
 }
 
-/* Desktop: от 1200px и выше */
 @media (min-width: 1200px) {
   .singup__modal {
     width: 600px;
     padding: 28px 80px;
   }
+
   .singup__input {
     height: 50px;
     padding-left: 20px;
   }
+
   .singup__button {
     width: 114px;
     height: 37px;
   }
+
   .singup__login {
     font-size: 10px;
   }

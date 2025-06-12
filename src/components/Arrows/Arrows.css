@@ -20,13 +20,3 @@
   width: auto;
   height: auto;
 }
-
-@media (max-width: 600px) {
-  .arrow {
-    font-size: 40px;
-    width: 80px;
-    height: 80px;
-    right: 15px;
-    bottom: 15px;
-  }
-}

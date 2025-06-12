@@ -4,58 +4,46 @@
     padding-bottom: 64px;
 }
 
-/* Логотип */
 .footer__logo {
     width: 120px;
     max-width: 100%;
 }
 
-/* Контейнер с флексом */
 .footer .container {
     display: flex;
     gap: 103px;
-    flex-wrap: wrap; /* чтобы переносились элементы на маленьких экранах */
+    flex-wrap: wrap;
 }
 
-/* Блок ссылок */
 .footer__links {
     display: block;
 }
 
-/* Первый элемент в списке с отступом снизу */
 .footer__item:first-child {
     margin-bottom: 10px;
 }
 
-/* Заголовок футера */
 .footer__title {
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 16px;
 }
 
-/* Ссылки */
 .footer__link {
     color: black;
     font-size: 12px;
 }
 
-/* Контакты - флекс с отступами */
 .footer__contact {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap; /* на маленьких экранах иконки могут переноситься */
+    flex-wrap: wrap;
 }
 
-/* Иконки */
 .footer__icon {
     font-size: 40px;
     color: #000;
 }
 
-
-/* Адаптив */
-
-/* Мобильные устройства (320-480px) */
 @media (max-width: 480px) {
     .footer .container {
         flex-direction: column;
@@ -88,7 +76,6 @@
     }
 }
 
-/* Планшеты (481px - 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
     .footer .container {
         flex-wrap: nowrap;
@@ -118,7 +105,6 @@
     }
 }
 
-/* Планшеты и маленькие десктопы (768px - 1199px) */
 @media (min-width: 768px) and (max-width: 1199px) {
     .footer .container {
         gap: 80px;
@@ -147,7 +133,6 @@
     }
 }
 
-/* Десктопы (от 1200px) */
 @media (min-width: 1200px) {
     .footer .container {
         gap: 103px;

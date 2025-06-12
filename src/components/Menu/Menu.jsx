@@ -13,18 +13,13 @@ const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
       <form className="menu__modal">
         <ul className="menu__list">
           <li className="menu__item">
-            <a className="menu__link" href="#">
+            <a className="menu__link" href="#hero">
               Who we are
             </a>
           </li>
           <li className="menu__item">
-            <a className="menu__link" href="#">
+            <a className="menu__link" href="#footer">
               Contacts
-            </a>
-          </li>
-          <li className="menu__item">
-            <a className="menu__link" href="#">
-              Menu
             </a>
           </li>
         </ul>

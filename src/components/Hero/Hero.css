@@ -74,6 +74,9 @@
   font-size: 25px;
   background-color: #ffb36c;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 480px) {
@@ -116,6 +119,9 @@
   .hero__search {
     width: 55px;
     border-radius: 0 10px 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -140,6 +146,9 @@
     width: 55px;
     margin-top: 0;
     border-radius: 0 10px 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .hero__box {

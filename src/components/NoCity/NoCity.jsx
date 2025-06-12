@@ -8,7 +8,7 @@ const NoCity = () => {
         <div className="backdrop nocity">
             <form className="nocity__modal">
                 <div className="nocity__alert"><FiAlertTriangle/></div>
-                <h2 className="nocity__title">City not found</h2>
+                <h2 className="nocity__title">Location not found</h2>
             </form>
         </div>
     )

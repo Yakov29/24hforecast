@@ -101,7 +101,7 @@ function App() {
         noCity.style.display = "block";
         setTimeout(() => {
           noCity.style.display = "none";
-        }, 3000);
+        }, 1500);
       }
       setCity(data);
     });
@@ -228,8 +228,10 @@ function App() {
 
   const logOut = () => {
     localStorage.removeItem("account");
+    localStorage.removeItem("city");
     setAvatarURL(user);
     setIsLoggedIn(false);
+    window.location.reload()
   };
 
   return (

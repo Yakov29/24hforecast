@@ -87,7 +87,6 @@ function App() {
   const weatherHandler = (e) => {
     setCity(e.target.value);
   };
-
   const weatherSaver = () => {
     getWeatherAPI(city).then((data) => {
       if (data) {
@@ -99,11 +98,13 @@ function App() {
       } else {
         const noCity = document.querySelector(".nocity");
         noCity.style.display = "block";
+        const input = document.querySelector(".hero__input");
+        if (input) input.value = "";
+        setCity("");
         setTimeout(() => {
           noCity.style.display = "none";
         }, 1500);
       }
-      setCity(data);
     });
   };
 

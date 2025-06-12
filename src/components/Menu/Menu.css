@@ -49,3 +49,10 @@
     border: none;
     background-color: #FFB36C;
 }
+
+
+@media screen and (min-width: 1200px) {
+  .backdrop{
+    display: none;
+  }
+}

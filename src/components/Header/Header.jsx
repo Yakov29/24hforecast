@@ -4,7 +4,7 @@ import "./Header.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { FaArrowRight } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 import logo from "../../images/logo.svg";
 
 const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
@@ -61,7 +61,7 @@ const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
           data-aos="fade-left"
           data-aos-delay="500"
         >
-          Menu <FaArrowRight />
+          Menu <IoIosArrowDown />
         </button>
 
         {isLoggedIn && (

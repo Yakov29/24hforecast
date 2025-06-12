@@ -14,6 +14,7 @@ import Menu from "./components/Menu/Menu";
 import Footer from "./components/Footer/Footer";
 import Arrows from "./components/Arrows/Arrows";
 import ToMore from "./components/ToMore/ToMore";
+import NoCity from "./components/NoCity/NoCity";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
@@ -23,7 +24,7 @@ const user = "https://freesvg.org/img/abstract-user-flat-3.png";
 
 function App() {
   const [avatarURL, setAvatarURL] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState();
   const [weather, setWeather] = useState(null);
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,22 +34,13 @@ function App() {
 
     const storedAccount = localStorage.getItem("account");
 
-    if (storedAccount === null) {
-      localStorage.setItem(
-        "account",
-        JSON.stringify({
-          avatar: user,
-        })
-      );
+    if (!storedAccount) {
+      const defaultAccount = { avatar: user };
+      localStorage.setItem("account", JSON.stringify(defaultAccount));
       setAvatarURL(user);
     } else {
       const account = JSON.parse(storedAccount);
-
-      if (!account.avatar) {
-        setAvatarURL(user);
-      } else {
-        setAvatarURL(account.avatar);
-      }
+      setAvatarURL(account.avatar || user);
 
       if (account.email && account.password) {
         getProfileAPI(account.email, account.password)
@@ -82,31 +74,38 @@ function App() {
     };
   }, []);
 
-  function regButtonHandler() {
-    const singUpBackdrop = document.querySelector(".singup");
-    const menuBackdrop = document.querySelector(".menu");
-    menuBackdrop.style.display = "none";
-    singUpBackdrop.style.display = "block";
-  }
+  const regButtonHandler = () => {
+    document.querySelector(".menu").style.display = "none";
+    document.querySelector(".singup").style.display = "block";
+  };
 
-  function logButtonHandler() {
-    const singUpBackdrop = document.querySelector(".singup");
-    const logInBackdrop = document.querySelector(".login");
-    singUpBackdrop.style.display = "none";
-    logInBackdrop.style.display = "block";
-  }
+  const logButtonHandler = () => {
+    document.querySelector(".singup").style.display = "none";
+    document.querySelector(".login").style.display = "block";
+  };
 
-  function weatherHandler(e) {
+  const weatherHandler = (e) => {
     setCity(e.target.value);
-  }
+  };
 
-  function weatherSaver() {
-    let savedCities = localStorage.getItem("city");
-    let citiesArray = savedCities ? JSON.parse(savedCities) : [];
-    citiesArray.push(city);
-    localStorage.setItem("city", JSON.stringify(citiesArray));
-    window.location.reload();
-  }
+  const weatherSaver = () => {
+    getWeatherAPI(city).then((data) => {
+      if (data) {
+        const saved = localStorage.getItem("city");
+        const arr = saved ? JSON.parse(saved) : [];
+        arr.push(city);
+        localStorage.setItem("city", JSON.stringify(arr));
+        window.location.reload();
+      } else {
+        const noCity = document.querySelector(".nocity");
+        noCity.style.display = "block";
+        setTimeout(() => {
+          noCity.style.display = "none";
+        }, 3000);
+      }
+      setCity(data);
+    });
+  };
 
   useEffect(() => {
     if (city) {
@@ -118,16 +117,8 @@ function App() {
 
   const renderCard = (index) => {
     const now = new Date();
-    const date = now.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    const day = now.toLocaleDateString("en-US", {
-      weekday: "long",
-    });
-
+    const date = now.toLocaleDateString("en-GB");
+    const day = now.toLocaleDateString("en-US", { weekday: "long" });
     const time = now.toLocaleTimeString("en-GB", {
       hour: "2-digit",
       minute: "2-digit",
@@ -143,8 +134,7 @@ function App() {
       temp = Math.round(weather.main.temp) + "℃";
       country = weather.sys.country;
       cityName = weather.name;
-      const iconCode = weather.weather[0].icon;
-      iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
     }
 
     return (
@@ -184,7 +174,6 @@ function App() {
     }
   };
 
-
   const registerAccount = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -206,9 +195,8 @@ function App() {
       setAvatarURL(data.avatar || user);
       setIsLoggedIn(true);
       form.reset();
-      const backdrop = document.querySelector(".singup");
-      backdrop.style.display = "none";
-    } catch (error) {
+      document.querySelector(".singup").style.display = "none";
+    } catch {
       alert("Помилка реєстрації. Спробуйте пізніше.");
     }
   };
@@ -216,7 +204,6 @@ function App() {
   const logInAccount = (e) => {
     e.preventDefault();
     const form = e.target.closest(".login__modal");
-    const backdrop = document.querySelector(".login");
     const inputs = form.querySelectorAll(".login__input[name]");
     const formData = {};
     inputs.forEach((input) => {
@@ -225,7 +212,7 @@ function App() {
 
     getProfileAPI(formData.email, formData.password)
       .then((data) => {
-        backdrop.style.display = "none";
+        document.querySelector(".login").style.display = "none";
         localStorage.setItem("account", JSON.stringify(formData));
         setAvatarURL(data.avatar || user);
         setIsLoggedIn(true);
@@ -235,10 +222,9 @@ function App() {
       });
   };
 
-  function openMenu() {
-    const backdrop = document.querySelector(".menu");
-    backdrop.style.display = "block";
-  }
+  const openMenu = () => {
+    document.querySelector(".menu").style.display = "block";
+  };
 
   const logOut = () => {
     localStorage.removeItem("account");
@@ -256,7 +242,13 @@ function App() {
         logOut={logOut}
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
-      <Cards city={city} renderCard={renderCard} getMoreData={getMoreData} weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
+      <Cards
+        city={city}
+        renderCard={renderCard}
+        getMoreData={getMoreData}
+        weatherHandler={weatherHandler}
+        weatherSaver={weatherSaver}
+      />
       <More city={moreCity} />
       {moreCity && <Hourly city={moreCity} />}
       {moreCity && <Daily city={moreCity} />}
@@ -264,10 +256,16 @@ function App() {
       <Slider />
       <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler} />
       <Login logInAccount={logInAccount} />
-      <Menu avatar={avatarURL} regButtonHandler={regButtonHandler} isLoggedIn={isLoggedIn} logOut={logOut} />
+      <Menu
+        avatar={avatarURL}
+        regButtonHandler={regButtonHandler}
+        isLoggedIn={isLoggedIn}
+        logOut={logOut}
+      />
       <Footer />
       <Arrows />
       <ToMore />
+      <NoCity />
     </div>
   );
 }

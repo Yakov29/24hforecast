@@ -1,7 +1,6 @@
 const getWeatherAPI = async (city) => {
     const apiKey = "16bf680cb30f4031bb864763fd5ad62e";
 
-    // Формируем параметры запроса безопасным способом
     const params = new URLSearchParams({
         q: city,
         appid: apiKey,

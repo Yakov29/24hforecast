@@ -141,7 +141,7 @@ const Cards = ({ getMoreData }) => {
   };
 
   return (
-    <section className="cards">
+    <section id="cards" className="cards">
       <Container>
         <ul className="cards__list">{cities.map((city, index) => renderCard(city, index))}</ul>
       </Container>

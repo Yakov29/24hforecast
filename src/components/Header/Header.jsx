@@ -29,8 +29,8 @@ const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
             </a>
           </li>
           <li className="heder__item">
-            <a href="#" className="header__link" data-aos="fade-up" data-aos-delay="300" onClick={openMenu}>
-              Menu
+            <a href="#cards" className="header__link" data-aos="fade-up" data-aos-delay="300">
+              Cities
             </a>
           </li>
         </ul>

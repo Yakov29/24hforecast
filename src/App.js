@@ -15,19 +15,22 @@ import Footer from "./components/Footer/Footer";
 import Arrows from "./components/Arrows/Arrows";
 import ToMore from "./components/ToMore/ToMore";
 import NoCity from "./components/NoCity/NoCity";
+import Avatar from "./components/Avatar/Avatar";
 
 import getWeatherAPI from "./api/getWeatherAPI";
 import pushProfileAPI from "./api/pushProfileAPI";
 import getProfileAPI from "./api/getProfileAPI";
+import pushAvatarAPI from "./api/pushAvatarAPI";
 
-const user = "https://freesvg.org/img/abstract-user-flat-3.png";
+const defaultUserAvatar = "https://freesvg.org/img/abstract-user-flat-3.png";
 
 function App() {
   const [avatarURL, setAvatarURL] = useState("");
-  const [city, setCity] = useState();
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [moreCity, setMoreCity] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accountFromAPI, setAccountFromAPI] = useState(null);
 
   useEffect(() => {
     document.title = "24 Forecast";
@@ -35,27 +38,31 @@ function App() {
     const storedAccount = localStorage.getItem("account");
 
     if (!storedAccount) {
-      const defaultAccount = { avatar: user };
+      const defaultAccount = { avatar: defaultUserAvatar };
       localStorage.setItem("account", JSON.stringify(defaultAccount));
-      setAvatarURL(user);
+      setAvatarURL(defaultUserAvatar);
     } else {
       const account = JSON.parse(storedAccount);
-      setAvatarURL(account.avatar || user);
+      setAvatarURL(account.avatar || defaultUserAvatar);
 
       if (account.email && account.password) {
         getProfileAPI(account.email, account.password)
           .then((data) => {
-            setAvatarURL(data.avatar || user);
+            setAvatarURL(data.avatar || defaultUserAvatar);
             setIsLoggedIn(true);
+            setAccountFromAPI(data);
           })
           .catch(() => {
-            setAvatarURL(user);
+            setAvatarURL(defaultUserAvatar);
             setIsLoggedIn(false);
           });
       }
     }
 
-    const backdrops = document.querySelectorAll(".singup, .login, .menu");
+    // Добавляем обработчики клика по фону модальных окон
+    const backdrops = document.querySelectorAll(
+      ".singup, .login, .menu, .avatar, .tomore, .nocity"
+    );
 
     const backdropClickHandler = (e) => {
       if (e.target === e.currentTarget) {
@@ -75,35 +82,46 @@ function App() {
   }, []);
 
   const regButtonHandler = () => {
-    document.querySelector(".menu").style.display = "none";
-    document.querySelector(".singup").style.display = "block";
+    const menu = document.querySelector(".menu");
+    const singup = document.querySelector(".singup");
+    if (menu) menu.style.display = "none";
+    if (singup) singup.style.display = "block";
   };
 
   const logButtonHandler = () => {
-    document.querySelector(".singup").style.display = "none";
-    document.querySelector(".login").style.display = "block";
+    const singup = document.querySelector(".singup");
+    const login = document.querySelector(".login");
+    if (singup) singup.style.display = "none";
+    if (login) login.style.display = "block";
   };
 
   const weatherHandler = (e) => {
     setCity(e.target.value);
   };
+
   const weatherSaver = () => {
+    if (!city) return;
+
     getWeatherAPI(city).then((data) => {
       if (data) {
         const saved = localStorage.getItem("city");
         const arr = saved ? JSON.parse(saved) : [];
-        arr.push(city);
-        localStorage.setItem("city", JSON.stringify(arr));
-        window.location.reload();
+        if (!arr.includes(city)) {
+          arr.push(city);
+          localStorage.setItem("city", JSON.stringify(arr));
+        }
+        setCity(""); 
       } else {
         const noCity = document.querySelector(".nocity");
-        noCity.style.display = "block";
-        const input = document.querySelector(".hero__input");
-        if (input) input.value = "";
-        setCity("");
-        setTimeout(() => {
-          noCity.style.display = "none";
-        }, 1500);
+        if (noCity) {
+          noCity.style.display = "block";
+          const input = document.querySelector(".hero__input");
+          if (input) input.value = "";
+          setCity("");
+          setTimeout(() => {
+            noCity.style.display = "none";
+          }, 1500);
+        }
       }
     });
   };
@@ -166,11 +184,13 @@ function App() {
     if (e.target.classList.contains("cards__more")) {
       const cityName = e.target
         .closest(".cards__item")
-        .querySelector(".cards__city").textContent;
-      setMoreCity(cityName);
-      const toMoreBlock = document.querySelector(".tomore");
-      if (toMoreBlock) {
-        toMoreBlock.style.display = "flex";
+        ?.querySelector(".cards__city")?.textContent;
+      if (cityName) {
+        setMoreCity(cityName);
+        const toMoreBlock = document.querySelector(".tomore");
+        if (toMoreBlock) {
+          toMoreBlock.style.display = "flex";
+        }
       }
     }
   };
@@ -185,26 +205,37 @@ function App() {
     });
 
     if (!formData.avatar) {
-      formData.avatar = user;
+      formData.avatar = defaultUserAvatar;
     }
 
-    formData.userid = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    formData.userid = Math.floor(
+      1000000000 + Math.random() * 9000000000
+    ).toString();
 
     try {
       const data = await pushProfileAPI(formData);
       localStorage.setItem("account", JSON.stringify(formData));
-      setAvatarURL(data.avatar || user);
+      setAvatarURL(data.avatar || defaultUserAvatar);
       setIsLoggedIn(true);
       form.reset();
-      document.querySelector(".singup").style.display = "none";
+      const singupModal = document.querySelector(".singup");
+      if (singupModal) singupModal.style.display = "none";
     } catch {
       alert("Помилка реєстрації. Спробуйте пізніше.");
     }
   };
 
+  const closeModal = () => {
+    const backdrops = document.querySelectorAll(".backdrop");
+    backdrops.forEach((backdrop) => {
+      backdrop.style.display = "none";
+    });
+  };
+
   const logInAccount = (e) => {
     e.preventDefault();
     const form = e.target.closest(".login__modal");
+    if (!form) return;
     const inputs = form.querySelectorAll(".login__input[name]");
     const formData = {};
     inputs.forEach((input) => {
@@ -213,9 +244,11 @@ function App() {
 
     getProfileAPI(formData.email, formData.password)
       .then((data) => {
-        document.querySelector(".login").style.display = "none";
+        const loginModal = document.querySelector(".login");
+        if (loginModal) loginModal.style.display = "none";
+
         localStorage.setItem("account", JSON.stringify(formData));
-        setAvatarURL(data.avatar || user);
+        setAvatarURL(data.avatar || defaultUserAvatar);
         setIsLoggedIn(true);
       })
       .catch((error) => {
@@ -224,16 +257,19 @@ function App() {
   };
 
   const openMenu = () => {
-    document.querySelector(".menu").style.display = "block";
+    const menu = document.querySelector(".menu");
+    if (menu) menu.style.display = "block";
   };
 
   const logOut = () => {
     localStorage.removeItem("account");
     localStorage.removeItem("city");
-    setAvatarURL(user);
+    setAvatarURL(defaultUserAvatar);
     setIsLoggedIn(false);
-    window.location.reload()
+    window.location.reload();
   };
+console.log("Початковий аватар:", accountFromAPI);
+  
 
   return (
     <div className="App">
@@ -247,28 +283,26 @@ function App() {
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards
         city={city}
+        weather={weather}
         renderCard={renderCard}
         getMoreData={getMoreData}
-        weatherHandler={weatherHandler}
-        weatherSaver={weatherSaver}
       />
-      <More city={moreCity} />
-      {moreCity && <Hourly city={moreCity} />}
-      {moreCity && <Daily city={moreCity} />}
       <Pets />
+      <More moreCity={moreCity} />
+      <Hourly />
+      <Daily />
       <Slider />
-      <SingUp registerAccount={registerAccount} logButtonHandler={logButtonHandler} />
-      <Login logInAccount={logInAccount} />
-      <Menu
-        avatar={avatarURL}
-        regButtonHandler={regButtonHandler}
-        isLoggedIn={isLoggedIn}
-        logOut={logOut}
+      <SingUp
+        registerAccount={registerAccount}
+        logButtonHandler={logButtonHandler}
       />
+      <Login logInAccount={logInAccount} regButtonHandler={regButtonHandler} />
+      <Menu />
       <Footer />
       <Arrows />
       <ToMore />
       <NoCity />
+      <Avatar avatarURL={avatarURL}/>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./SingUp.css";
 
-const SingUp = ({ registerAccount, logButtonHandler }) => {
+const SingUp = ({ registerAccount, logButtonHandler , onClose}) => {
   const [avatarError, setAvatarError] = useState("");
   const avatarInputRef = useRef(null);
 
@@ -24,6 +24,14 @@ const SingUp = ({ registerAccount, logButtonHandler }) => {
   return (
     <div className="backdrop singup">
       <form className="singup__modal" onSubmit={registerAccount}>
+        <button
+          type="button"
+          className="avatar__close-button"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          &times;
+        </button>
         <h2 className="singup__title">Sign Up</h2>
         <ul className="singup__list">
           <li className="singup__item">

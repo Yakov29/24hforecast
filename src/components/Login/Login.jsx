@@ -1,10 +1,19 @@
 import React from "react";
-import "./Login.css"
+import "./Login.css";
 
-const Login = ({logInAccount}) => {
+const Login = ({ logInAccount, onClose }) => {
   return (
     <div className="backdrop login">
       <form className="login__modal">
+        <button
+          type="button"
+          className="avatar__close-button"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
         <h2 className="login__title">Log In</h2>
         <ul className="login__list">
           <li className="login__item">

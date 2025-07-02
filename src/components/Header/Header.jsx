@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 import { IoIosArrowDown } from "react-icons/io";
 import logo from "../../images/logo.svg";
 
-const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
+const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut, openProfile }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -66,6 +66,7 @@ const Header = ({ regButtonHandler, avatar, isLoggedIn, openMenu, logOut }) => {
 
         {isLoggedIn && (
           <img
+            onClick={openProfile}
             src={avatar}
             className="header__user"
             alt="User avatar"

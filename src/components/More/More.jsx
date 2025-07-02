@@ -26,6 +26,7 @@ const More = ({ city }) => {
     <section className="more" id="more" data-aos="fade-up">
       <Container>
         <div className="more__data">
+         
           <ul className="more__list">
             <li className="more__item">
               <h4 className="more__title">Feels like</h4>

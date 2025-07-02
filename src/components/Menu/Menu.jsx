@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./Menu.css";
 
-const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
+const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut, openProfile, onClose }) => {
   useEffect(() => {
     AOS.init({ duration: 500, once: true });
   }, []);
@@ -11,6 +11,14 @@ const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
   return (
     <div className="backdrop menu" data-aos="fade-down">
       <form className="menu__modal">
+          <button
+          type="button"
+          className="avatar__close-button"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          &times;
+        </button>
         <ul className="menu__list">
           <li className="menu__item">
             <a className="menu__link" href="#hero">
@@ -24,7 +32,7 @@ const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut }) => {
           </li>
         </ul>
         <div className="menu__profile">
-          <img className="menu__avatar" src={avatar} alt="User avatar" />
+          <img className="menu__avatar" onClick={openProfile} src={avatar} alt="User avatar" />
           {!isLoggedIn ? (
             <button
               type="button"

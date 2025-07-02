@@ -279,6 +279,7 @@ console.log("Початковий аватар:", accountFromAPI);
         isLoggedIn={isLoggedIn}
         openMenu={openMenu}
         logOut={logOut}
+        
       />
       <Hero weatherHandler={weatherHandler} weatherSaver={weatherSaver} />
       <Cards
@@ -295,8 +296,9 @@ console.log("Початковий аватар:", accountFromAPI);
       <SingUp
         registerAccount={registerAccount}
         logButtonHandler={logButtonHandler}
+        onClose={closeModal}
       />
-      <Login logInAccount={logInAccount} regButtonHandler={regButtonHandler} />
+      <Login logInAccount={logInAccount} regButtonHandler={regButtonHandler} onClose={closeModal} />
       <Menu />
       <Footer />
       <Arrows />

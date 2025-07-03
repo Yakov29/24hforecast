@@ -30,6 +30,7 @@
   border: none;
   border-radius: 10px;
   box-sizing: border-box;
+  margin-top: 15px;
 }
 
 .singup__description {
@@ -45,10 +46,11 @@
   border-radius: 10px;
   background-color: #FFB36C;
   cursor: pointer;
+    margin-bottom: 15px;
 }
 
 .singup__login {
-  margin-top: 15px;
+
   font-size: 10px;
 }
 

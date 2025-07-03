@@ -3,6 +3,10 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css');
 
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     font-family: 'Montserrat';
 }

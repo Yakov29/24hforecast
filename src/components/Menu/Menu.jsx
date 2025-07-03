@@ -11,14 +11,20 @@ const Menu = ({ avatar, regButtonHandler, isLoggedIn, logOut, openProfile, onClo
   return (
     <div className="backdrop menu" data-aos="fade-down">
       <form className="menu__modal">
-          <button
+          {/* <button
           type="button"
-          className="avatar__close-button"
-          onClick={onClose}
+          className="close__button"
+          onClick={() => {
+            console.log("click");
+            const backdrops = document.querySelectorAll(".backdrop");
+            backdrops.forEach((backdrop) => {
+              backdrop.style.display = "none";
+            });
+          }}
           aria-label="Close"
         >
           &times;
-        </button>
+        </button> */}
         <ul className="menu__list">
           <li className="menu__item">
             <a className="menu__link" href="#hero">

@@ -24,10 +24,16 @@ const SingUp = ({ registerAccount, logButtonHandler , onClose}) => {
   return (
     <div className="backdrop singup">
       <form className="singup__modal" onSubmit={registerAccount}>
-        <button
+  <button
           type="button"
-          className="avatar__close-button"
-          onClick={onClose}
+          className="close__button"
+          onClick={() => {
+            console.log("click");
+            const backdrops = document.querySelectorAll(".backdrop");
+            backdrops.forEach((backdrop) => {
+              backdrop.style.display = "none";
+            });
+          }}
           aria-label="Close"
         >
           &times;

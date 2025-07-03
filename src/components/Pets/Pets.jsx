@@ -27,7 +27,7 @@ const Pets = () => {
   };
 
   return (
-    <div className="pets">
+    <section className="pets">
       <Container>
         <h2 className="pets__title">Interacting with our pets</h2>
         <ul className="pets__list">
@@ -50,7 +50,7 @@ const Pets = () => {
           </button>
         )}
       </Container>
-    </div>
+    </section>
   );
 };
 

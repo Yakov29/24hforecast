@@ -1,8 +1,7 @@
 
 .slider {
-  margin-bottom: 80px;
+  padding-bottom: 80px;
   max-width: 100%; 
-  padding: 0 10px;
 }
 
 .slider__title {

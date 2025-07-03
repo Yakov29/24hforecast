@@ -1,6 +1,6 @@
 .pets {
-  margin-top: 80px;
-  margin-bottom: 80px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .pets__title {
@@ -13,7 +13,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
   justify-content: center;
 }
 
@@ -36,7 +35,15 @@
   border-radius: 10px;
   cursor: pointer;
   color: #000;
+  margin-top: 40px;
 }
+
+.pets__description{
+margin-top: 20px;
+}
+
+
+
 
 @media (max-width: 480px) {
   .pets {
